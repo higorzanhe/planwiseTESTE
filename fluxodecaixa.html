@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova Transação</title>
+  <link rel="stylesheet" href="fluxodecaixa.css" />
+</head>
+<main>
+<body>
+  <div class="form-wrapper">
+    <form class="transacao-form" id="formTransacao">
+      <div class="form-header">
+        <label for="tipoTransacao">Tipo de Transação</label>
+        <select id="tipoTransacao">
+          <option>Entrada de caixa</option>
+          <option>Saída de caixa</option>
+        </select>
+        <span class="valor">R$ 1.000,00</span>
+      </div>
+
+      <div class="form-group">
+        <label for="data">Data</label>
+        <input type="date" id="data" value="2024-04-03" required />
+      </div>
+
+      <div class="form-group">
+        <label for="metodoPagamento">Método de Pagamento</label>
+        <select id="metodoPagamento">
+          <option>Débito</option>
+          <option>Crédito</option>
+          <option>Pix</option>
+          <option>Dinheiro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" placeholder="Descrição" />
+      </div>
+
+      <div class="form-group">
+        <label for="observacoes">Observações</label>
+        <textarea id="observacoes" rows="4" placeholder="Digite observações..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancelar" onclick="window.location.href='relatoriofinanceiro.html'">Cancelar</button>
+        <button type="submit" class="salvar" onclick="window.location.href='relatoriofinanceiro.html'; return false;">Salvar</button>
+      </div>
+    </form>
+  </div>
+  <footer>
+    <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
+  </footer>
+<main>
+  <script src="script.js"></script>
+</body>
+</html>

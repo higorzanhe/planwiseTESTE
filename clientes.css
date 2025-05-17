@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+body { 
+    color: #47525E;
+    font-family: 'Karla', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.top-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    justify-content: space-between;
+}
+
+.pesquisa, .btn-adicionar {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 0; 
+
+}
+
+.btn-adicionar {
+    background-color: #0d5c75;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-adicionar:hover {
+    background-color: #0d5c75;
+}
+
+.btn-voltar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #0d5c75;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color:#0d5c75
+}
+
+.lista-clientes {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  .cliente {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .cliente-header {
+    width: 100%;
+    text-align: left;
+    background-color: #f8f9fa;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cliente-detalhes {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .cliente-detalhes table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cliente-detalhes th, .cliente-detalhes td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+
+  .btn-voltar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #0d5c75;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(18,130,162,0.15);
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 1000;
+}
+
+button.voltar, .btn-voltar {
+    position: right;
+    bottom: 24px;
+    left: 24px;
+    background-color: #0d5c75;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-family: 'Karla', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(18,130,162,0.12);
+    transition: background 0.2s, transform 0.2s;
+    z-index: 1000;
+}
+
+button.voltar:hover, .btn-voltar:hover {
+    background-color: #0d5c75;
+    transform: scale(1.05);
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estoque.css">
+    <title>Estoque</title>
+    <script src="../js/produtoseserviços.js"></script>
+</head>
+<body onload="exibirProdutos()">
+    <header>
+        <h1>Estoque e Serviços</h1>
+    </header>
+    <main>
+       
+        <section>
+            <h2>Produtos</h2>
+            <table id="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Custo</th>
+                        <th>Tipo</th>
+                    </tr>
+                </thead>
+                <tbody id="produtos-lista">
+                    <tr>
+                        <td colspan="5" id="produtos-vazio">Nenhum produto cadastrado.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        
+        <section>
+            <h2>Serviços</h2>
+            <table id="tabela-servicos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody id="servicos-lista">
+                    <tr>
+                        <td colspan="3" id="servicos-vazio">Nenhum serviço cadastrado.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <input type="button" value="Voltar" onclick="window.location.href='gerenciamento.html'"><br><br>
+    <footer>
+        <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

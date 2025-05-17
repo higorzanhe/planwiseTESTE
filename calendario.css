@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+body {
+  font-family: 'Karla', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; 
+  color: #0d5c75; 
+}
+
+h2 {
+  font-size: 2rem;
+  color: #0d5c75; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#formAgendamento {
+  background-color: #ffffff; 
+  border: 1px solid #0d5c75; 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(18, 130, 162, 0.1); 
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#formAgendamento .form-label {
+  font-weight: bold;
+  color: #0d5c75; 
+}
+
+#formAgendamento .form-control {
+  border: 1px solid #0d5c75; 
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+#formAgendamento .form-control:focus {
+  border-color: #0d5c75; 
+  box-shadow: 0 0 5px rgba(18, 130, 162, 0.5); 
+  outline: none;
+}
+
+#formAgendamento button[type="submit"] {
+  background-color: #0d5c75; 
+  color: white
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#formAgendamento button[type="submit"]:hover {
+  background-color: #1282a2; ; 
+}
+#mensagemSucesso {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #0d5c75; 
+  color: #ffffff; 
+  border: 1px solid #1282a2; 
+  display: none;
+}
+
+#calendario {
+  background-color: #ffffff; 
+  border: 1px solid #0d5c75; 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(18, 130, 162, 0.1); 
+}
+
+footer {
+  text-align: center;
+  background-color: #0d5c75; 
+  color: #ffffff; 
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+button.btn.btn-secondary {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0d5c75; /* Teal blue */
+  color: #ffffff; /* Off white */
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button.btn.btn-secondary:hover {
+  background-color: #1282a2; /* Rich navy */
+  transform: scale(1.05);
+}
+
+button.btn.btn-secondary:active {
+  background-color: #1282a2; /* Mais escuro para clique */
+}

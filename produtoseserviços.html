@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br"> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="produtoseserviços.css">
+    <title>Cadastro de Estoque</title>
+    <script src="produtoseserviços.js"></script>
+</head>
+
+<body>
+    
+    <header>
+        <h1>Cadastro de Estoque e Serviços</h1>
+    </header>
+
+    <main>
+        <form onsubmit="event.preventDefault(); if (validarFormulario('nome', 'quantidade', 'preco', 'custo', 'tipo')) cadastrarProduto(
+            document.getElementById('nome').value,
+            document.getElementById('quantidade').value,
+            document.getElementById('preco').value,
+            document.getElementById('custo').value,
+            document.getElementById('tipo').value
+        );">
+
+            <label for="nome">Nome do Produto:</label><br>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <label for="quantidade">Quantidade:</label><br>
+            <input type="text" id="quantidade" name="quantidade" required><br><br>
+
+            <label for="preco">Preço:</label><br>
+            <input type="text" id="preco" name="preco" required><br><br>
+
+            <label for="custo">Custo:</label><br>
+            <input type="text" id="custo" name="custo" required><br><br>
+
+            <label for="tipo">Tipo:</label><br>
+            <select id="tipo" name="tipo" required>
+                <option value="">Selecione</option>
+                <option value="Kg">Kg</option>
+                <option value="Unidade">Unidade</option>
+                <option value="Litro">Litro</option>
+                <option value="Serviços">Serviços</option>
+            </select><br><br>
+
+            <input type="submit" value="Cadastrar">
+            <input type="reset" value="Limpar"><br><br>
+            <input type="button" value="Voltar" onclick="window.location.href='gerenciamento.html'"><br><br>
+        </form>
+    </main>
+  
+    <footer>
+        <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>

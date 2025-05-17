@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Karla', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FEFCFB;
+  color: #001F54;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  body.cadastro {
+    background-color: #fefcfb;
+    color: #0A1128;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cabecalho-site {
+    background-color: #0d5c75;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-nav {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .container {
+    width: 420px;
+    background-color: white;
+    border: 2px solid #1282a2;
+    border-radius: 10px;
+    padding: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 110px auto 0 auto; 
+  }
+
+  .top-bar {
+    background-color: #0d5c75;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .top-bar h1 {
+    color: white;
+    font-size: 24px;
+  }
+  
+  form {
+    padding: 30px 40px;
+  }
+
+  .input-box {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .input-box input {
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgba(29, 27, 27, 0.2);
+    border-radius: 40px;
+    outline: none;
+    font-size: 16px;
+    color: black;
+    padding: 0 45px 0 20px;
+  }
+  
+  .input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1282a2;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
+
+  #CadastrarBtn {
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgba(29, 27, 27, 0.2);
+    color: black;
+    border-radius: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #CadastrarBtn:hover {
+    background-color: #0d5c75;
+    color: white;
+  }
+  
+  .register-link {
+    text-align: center;
+    margin: 20px;
+    font-size: 14px;
+  }
+
+
+   footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0d5c75;
+    color: #fff;
+    margin-top: 101px;
+  }
+  
