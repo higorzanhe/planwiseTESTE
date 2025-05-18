@@ -1,10 +1,20 @@
-  <script>
-  function sair() {
-    localStorage.clear();
-    window.location.href = "index-homepage.html";
+function sair() {
+    localStorage.removeItem("username");
+    window.location.href = "login.html";
   }
-
+  
   function mostrarAjuda() {
-    alert("Bem-vindo(a) à página principal!\n\n• Use os cards para navegar entre Gerenciamento, Calendário e Finanças.\n• Clique em 'Sair' para encerrar sua sessão.\n• Mais dúvidas? Consulte nosso FAQ em breve!");
+    document.getElementById("ajuda-modal").style.display = "block";
   }
-</script>
+  
+  function fecharAjuda() {
+    document.getElementById("ajuda-modal").style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    const modal = document.getElementById("ajuda-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  
