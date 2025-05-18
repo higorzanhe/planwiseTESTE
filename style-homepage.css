@@ -118,8 +118,7 @@ body.homepage {
   z-index: 1000;
 }
 
-.btn-sair,
-.btn-ajuda {
+.btn-sair {
   background-color: #034078;
   color: #FEFCFB;
   border: none;
@@ -130,7 +129,26 @@ body.homepage {
   transition: background-color 0.3s ease;
 }
 
-.btn-sair:hover,
+.btn-sair:hover {
+  background-color: #1282A2;
+}
+
+.btn-ajuda {
+  background-color: #034078;
+  color: #FEFCFB;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
 .btn-ajuda:hover {
   background-color: #1282A2;
 }
