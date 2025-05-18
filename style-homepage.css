@@ -124,3 +124,66 @@ body.homepage {
   .feature-card {
     width: 90%;
   }
+.botoes-topo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .botao-sair {
+    background-color: #034078;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .botao-sair:hover {
+    background-color: #1282A2;
+  }
+  
+  .botao-ajuda {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #034078;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .ajuda-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .ajuda-conteudo {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .fechar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
