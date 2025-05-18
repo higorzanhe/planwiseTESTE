@@ -12,6 +12,9 @@
 <body class="homepage">
   <header class="cabecalho-site">
     <div class="logo-nav">PlanWise</div>
+     <div class="botoes-topo">
+        <button class="botao-sair" onclick="sair()">Sair</button>
+      </div>
   </header>
 
 
@@ -57,5 +60,15 @@
       document.querySelector(".logo-nav").textContent = `Bem-vindo(a), ${nome}!`;
     }
   </script>
+  <button class="botao-ajuda" onclick="mostrarAjuda()">?</button>
+<div id="ajuda-modal" class="ajuda-modal">
+    <div class="ajuda-conteudo">
+      <span class="fechar" onclick="fecharAjuda()">&times;</span>
+      <h3>Ajuda</h3>
+      <p>Bem-vindo(a)! Use os cartões para navegar pelo site. Clique em "Gerenciamento", "Calendário" ou "Resumo Financeiro" para acessar cada área. Se tiver dúvidas, clique nesse botão novamente.</p>
+    </div>
+
+  
+  <script src="js/homepage.js"></script>
 </body>
 </html>
