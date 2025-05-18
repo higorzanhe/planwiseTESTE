@@ -103,12 +103,14 @@ body.homepage {
   }
 
 
-  background-color: #0d5c75;
+.footer {
+  background-color: #0d5c75 !important; 
   color: #FEFCFB;
   text-align: center;
   padding: 15px 0;
-  flex-shrink: 0;
+  width: 100%;
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 
