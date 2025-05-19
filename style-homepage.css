@@ -116,7 +116,9 @@ body.homepage {
   display: flex;
   gap: 10px;
   z-index: 1000;
-}
+
+
+
 
 .btn-sair {
   background-color: #034078;
@@ -133,7 +135,12 @@ body.homepage {
   background-color: #1282A2;
 }
 
+
+  
 .btn-ajuda {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background-color: #034078;
   color: #FEFCFB;
   border: none;
@@ -147,11 +154,50 @@ body.homepage {
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
+  z-index: 1000;
 }
 
 .btn-ajuda:hover {
   background-color: #1282A2;
 }
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); /* fundo escuro */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modal-conteudo {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.fechar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #034078;
+  cursor: pointer;
+}
+
+
+
 
 
 @media (max-width: 768px) {
