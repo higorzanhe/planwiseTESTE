@@ -1,6 +1,6 @@
 function sair() {
   localStorage.removeItem("username");
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 function mostrarAjuda() {
