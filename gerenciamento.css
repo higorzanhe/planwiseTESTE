@@ -127,16 +127,14 @@ button[type="button"]:hover {
 }
 
 @media (max-width: 900px) {
-    .container {
-        padding: 10px;
-    }
-    .card-container {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-    .card {
-        width: 90%;
-        min-width: 220px;
-    }
+  .card-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    min-width: 220px;
+  }
 }
