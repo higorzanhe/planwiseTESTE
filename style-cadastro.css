@@ -1,115 +1,129 @@
-body.cadastro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #fefcfb;
-    color: #0A1128;
-    font-family: "Karla", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Karla', sans-serif;
+}
+
+
+{
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-.container {
-    background: #fff;
-    padding: 40px 32px 32px 32px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(18,130,162,0.08);
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-h1 {
-    color: #034078;
-    font-size: 2rem;
-    margin-bottom: 18px;
+    font-family: Arial, sans-serif;
+  }
+  
+ 
+  body.cadastro {
+    background-color: #fefcfb;
+    color: #0A1128;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cabecalho-site {
+    background-color: #0d5c75;
+    padding: 15px 0;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-nav {
+    color: white;
+    font-size: 32px;
     font-weight: bold;
-}
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .container {
+    width: 420px;
+    background-color: white;
+    border: 2px solid #1282a2;
+    border-radius: 10px;
+    padding: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 110px auto 0 auto; 
+  }
 
-.input-box {
+  .top-bar {
+    background-color: #0d5c75;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .top-bar h1 {
+    color: white;
+    font-size: 24px;
+  }
+  
+  form {
+    padding: 30px 40px;
+  }
+
+  .input-box {
     position: relative;
     width: 100%;
-}
-
-.input-box input {
+    margin: 20px 0;
+  }
+  
+  .input-box input {
     width: 100%;
-    padding: 12px 40px 12px 12px;
-    border: 1.5px solid #1282A2;
-    border-radius: 6px;
-    font-size: 1rem;
-    background: #f8f9fa;
-    color: #0A1128;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgba(29, 27, 27, 0.2);
+    border-radius: 40px;
     outline: none;
-    transition: border-color 0.2s;
-}
-
-.input-box input:focus {
-    border-color: #034078;
-}
-
-.input-box i {
+    font-size: 16px;
+    color: black;
+    padding: 0 45px 0 20px;
+  }
+  
+  .input-box i {
     position: absolute;
-    right: 12px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: #1282A2;
-    font-size: 1.2rem;
-}
+    color: #1282a2;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+  }
 
-button.login {
+  #CadastrarBtn {
     width: 100%;
-    background: #1282A2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.1rem;
-    font-family: inherit;
-    font-weight: bold;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid rgba(29, 27, 27, 0.2);
+    color: black;
+    border-radius: 40px;
+    font-size: 20px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.2s, transform 0.2s;
-}
-
-button.login:hover {
-    background: #034078;
-    transform: scale(1.03);
-}
-
-.register-link {
+    transition: background-color 0.3s ease;
+  }
+  
+  #CadastrarBtn:hover {
+    background-color: #0d5c75;
+    color: white;
+  }
+  
+  .register-link {
     text-align: center;
-    margin-top: 10px;
-    font-size: 1rem;
-}
+    margin: 20px;
+    font-size: 14px;
+  }
 
-.register-link a {
-    color: #1282A2;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.2s;
-}
-
-.register-link a:hover {
-    color: #034078;
-}
-
-@media (max-width: 500px) {
-    .container {
-        padding: 20px 8px;
-        max-width: 98vw;
-    }
-    h1 {
-        font-size: 1.3rem;
-    }
-}
+   .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0d5c75;
+    color: #fff;
+    margin-top: 101px;
+  }
+  
