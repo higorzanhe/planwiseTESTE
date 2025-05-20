@@ -126,4 +126,52 @@
     color: #fff;
     margin-top: 101px;
   }
+
+
+
+
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    margin-top: 50px;
+  }
+
+  .top-bar h1 {
+    font-size: 22px;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  .input-box input {
+    font-size: 14px;
+    height: 45px;
+  }
+
+  #CadastrarBtn {
+    font-size: 18px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-nav {
+    font-size: 26px;
+  }
+
+  .top-bar h1 {
+    font-size: 20px;
+  }
+
+  .input-box input {
+    font-size: 13px;
+    padding-left: 15px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+}
   
