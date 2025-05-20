@@ -8,6 +8,14 @@ body {
     padding: 0;
 }
 
+.cabecalho-site {
+  background-color: #0d5c75;
+  padding: 15px 0;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
 .container {
     max-width: 1100px;
     margin: 40px auto 0 auto;
@@ -108,15 +116,14 @@ button[type="button"]:hover {
     transform: scale(1.04);
 }
 
-footer {
-    background: #0d5c75;
-    color: #fff;
-    text-align: center;
-    padding: 16px 0;
-    font-size: 1rem;
-    margin-top: 40px;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+
+.footer {
+  background-color: #0d5c75;
+  color: #FEFCFB;
+  text-align: center;
+  padding: 15px 0;
+  flex-shrink: 0;
+  margin-top: auto;
 }
 
 @media (max-width: 900px) {
