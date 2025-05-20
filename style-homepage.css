@@ -136,42 +136,6 @@ body.homepage {
 }
 
  
-.btn-ajuda {
-  position: fixed;
-  bottom: 30px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  background-color: #034078;
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.btn-ajuda:hover {
-  background-color: #1282A2;
-}
-
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4); /* fundo escuro */
-  justify-content: center;
-  align-items: center;
-}
 
 
 .modal-conteudo {
