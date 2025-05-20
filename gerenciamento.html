@@ -1,52 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="gerenciamento.css" />
   <title>Gerenciamento</title>
+  <link rel="stylesheet" href="gerenciamento.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet" />
 </head>
-
-  
-<body class="Gerenciamento">
-  <header class="cabecalho-site">
-    <div class="logo-nav">Gerenciamento</div>
+<body>
+  <header>
+    Gerenciamento
   </header>
 
-
-
-  
-  <main>
-    <div class="card-container">
+  <main class="container">
+    <div class="cards">
       <div class="card">
-        <div class="icon-circle"><p>&#128101;</p></div>
-        <input type="button" value="Clientes" onclick="window.location.href='clientes.html'" />
+        <img src="cliente.png" alt="Clientes" />
+        <p>Clientes</p>
       </div>
       <div class="card">
-        <div class="icon-circle"><p>&#128736;</p></div>
-        <input type="button" value="Serviços" onclick="window.location.href='produtoseserviços.html'" />
+        <img src="servico.png" alt="Serviços" />
+        <p>Serviços</p>
       </div>
       <div class="card">
-        <div class="icon-circle"><p>&#128722;</p></div>
-        <input type="button" value="Estoque" onclick="window.location.href='estoque.html'" />
+        <img src="estoque.png" alt="Estoque" />
+        <p>Estoque</p>
       </div>
     </div>
 
-
-    
-    <div style="text-align: center; margin-top: 20px;">
-      <button type="button" onclick="window.location.href='index-homepage.html'">Voltar</button>
+    <div class="voltar-container">
+      <button class="btn-voltar">Voltar</button>
     </div>
   </main>
 
-
-
-
-  
-  <footer class="footer">
-    <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
+  <footer>
+    © 2025 PlanWise. Todos os direitos reservados.
   </footer>
-
 </body>
 </html>
