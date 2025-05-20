@@ -4,7 +4,7 @@ function sair() {
 }
 
 function mostrarAjuda() {
-  document.getElementById("ajuda-modal").style.display = "block";
+  document.getElementById("ajuda-modal").style.display = "flex";
 }
 
 function fecharAjuda() {
