@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -17,21 +18,21 @@
   <main class="container">
     <div class="cards">
       <div class="card">
-        <img src="cliente.png" alt="Clientes" />
+        <i class="fas fa-user fa-3x icon"></i>
         <p>Clientes</p>
       </div>
       <div class="card">
-        <img src="servico.png" alt="Serviços" />
+        <i class="fas fa-wrench fa-3x icon"></i>
         <p>Serviços</p>
       </div>
       <div class="card">
-        <img src="estoque.png" alt="Estoque" />
+        <i class="fas fa-boxes fa-3x icon"></i>
         <p>Estoque</p>
       </div>
     </div>
 
     <div class="voltar-container">
-      <button class="btn-voltar">Voltar</button>
+      <button class="btn-voltar" onclick="history.back()">Voltar</button>
     </div>
   </main>
 
