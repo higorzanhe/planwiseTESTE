@@ -36,19 +36,23 @@
   .cards {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* deixa os cards do mesmo tamanho */
+    text-decoration: none;
+    align-items: stretch; 
     gap: 40px;
-    flex-wrap: wrap; /* garante que seja responsivo */
+    flex-wrap: wrap;
     max-width: 1000px;
     margin: 0 auto;
+    text-decoration: none;
+     color: inherit;
   }
   
   .card {
     background-color: #fff;
     border: 2px solid #0d5c75;
+    text-decoration: none;
     border-radius: 8px;
     padding: 30px 20px;
-    width: 200px; /* garante que os cards fiquem lado a lado */
+    width: 200px; 
     height: 200px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -56,6 +60,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
   }
   
   .card i {
