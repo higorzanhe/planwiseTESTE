@@ -110,30 +110,53 @@ main {
   border-bottom: 1px solid #eee;
 }
 
-.voltar-container {
-    position: fixed;
-    bottom: 80px;
-    right: 30px;
-    z-index: 1000;
-  }
-  
-  .btn-voltar {
-    background-color: #0d5c75;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .btn-voltar:hover {
-    background-color: #1282a2;
-  }
-  
+.cliente-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
 
-/* Rodapé */
+.cliente-botoes button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.cliente-botoes .editar {
+  background-color: #ffc107;
+  color: white;
+}
+
+.cliente-botoes .excluir {
+  background-color: #dc3545;
+  color: white;
+}
+
+.voltar-container {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.btn-voltar {
+  background-color: #0d5c75;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #1282a2;
+}
+
 footer {
   background-color: #0d5c75;
   color: white;
@@ -142,37 +165,98 @@ footer {
   font-size: 14px;
 }
 
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 30px;
+  border: 2px solid #1282a2;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+.modal-content input {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal-content button {
+  background-color: #0d5c75;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.modal-content button:hover {
+  background-color: #1282a2;
+}
+
+.modal .close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .top-actions {
-      flex-direction: column;
-      gap: 10px;
-      max-width: 100%;
-      padding: 0 20px;
-    }
-  
-    .pesquisa, .btn-adicionar {
-      width: 100%;
-    }
-  
-    .lista-clientes {
-      max-width: 100%;
-      padding: 0 20px;
-    }
+  .top-actions {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    padding: 0 20px;
   }
-  
-  @media (max-width: 480px) {
-    .logo-nav {
-      font-size: 24px;
-    }
-  
-    .cliente-header {
-      font-size: 14px;
-      padding: 10px;
-    }
-  
-    .btn-voltar {
-      font-size: 0.85rem;
-      padding: 8px 12px;
-    }
+
+  .pesquisa, .btn-adicionar {
+    width: 100%;
   }
-  
+
+  .lista-clientes {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-nav {
+    font-size: 24px;
+  }
+
+  .cliente-header {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn-voltar {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}
