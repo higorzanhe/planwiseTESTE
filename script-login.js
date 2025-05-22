@@ -1,24 +1,43 @@
-window.onload = function () {
-    const email = document.getElementById('email');
-    const senha = document.getElementById('senha');
-    const remember = document.getElementById('remember');
-    const loginBtn = document.getElementById('loginBtn');
+document.getElementById('loginForm').addEventListener('submit', function (e) {
+  e.preventDefault();
 
-    if (localStorage.getItem('email')) {
-        email.value = localStorage.getItem('email');
-        senha.value = localStorage.getItem('senha');
-        remember.checked = true;
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value.trim();
+  const lembrarMe = document.getElementById('lembrarMe').checked;
+
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const usuario = usuarios.find(user => user.email === email && user.senha === senha);
+
+  if (usuario) {
+    if (lembrarMe) {
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+    } else {
+      sessionStorage.setItem('usuarioLogado', JSON.stringify(usuario));
     }
 
-    loginBtn.addEventListener('click', function () {
-        if (remember.checked) {
-            localStorage.setItem('email', email.value);
-            localStorage.setItem('senha', senha.value);
-        } else {
-            localStorage.removeItem('email');
-            localStorage.removeItem('senha');
-        }
+    alert('Login realizado com sucesso!');
+    window.location.href = 'gerenciamento.html'; 
+  } else {
+    alert('Email ou senha incorretos.');
+  }
+});
 
-        window.location.href = "homepage.html";
-    });
-};
+
+document.getElementById('esqueciSenha').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email) {
+    alert('Digite seu email no campo para recuperar a senha.');
+    return;
+  }
+
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const usuario = usuarios.find(user => user.email === email);
+
+  if (usuario) {
+    alert(`Sua senha é: ${usuario.senha}`);
+  } else {
+    alert('Email não encontrado.');
+  }
+});
