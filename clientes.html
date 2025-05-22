@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes</title>
   <link rel="stylesheet" href="clientes.css" />
   <script defer src="clientes.js"></script>
@@ -16,143 +16,43 @@
   <main>
     <div class="clientes-container">
       <div class="top-bar">
-        <input type="text" class="pesquisa" placeholder="Pesquisar cliente..." />
-        <button class="btn-adicionar" onclick="window.location.href='cadastrodeclientes.html'">
-          Adicionar novo cliente
-        </button>
+        <input type="text" class="pesquisa" placeholder="Pesquisar cliente..." oninput="filtrarClientes()" />
+        <button class="btn-adicionar" onclick="abrirModal()">Adicionar novo cliente</button>
       </div>
 
-      <div class="lista-clientes">
-        <div class="cliente">
-          <button class="cliente-header">Nome do cliente 1 ▼</button>
-          <div class="cliente-detalhes">
-            <table>
-              <tr>
-                <th>CPF</th><th>Serviço</th><th>Observação</th>
-              </tr>
-              <tr>
-                <td>000.000.000-00</td><td>Consultoria</td><td>Pago</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        <div class="cliente">
-          <button class="cliente-header">Nome do cliente 2 ▼</button>
-          <div class="cliente-detalhes">
-            <table>
-              <tr>
-                <th>CPF</th><th>Serviço</th><th>Observação</th>
-              </tr>
-              <tr>
-                <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 3 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 4 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 5 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 6 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 7 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          
-        <div class="cliente">
-            <button class="cliente-header">Nome do cliente 8 ▼</button>
-            <div class="cliente-detalhes">
-              <table>
-                <tr>
-                  <th>CPF</th><th>Serviço</th><th>Observação</th>
-                </tr>
-                <tr>
-                  <td>111.111.111-11</td><td>Auditoria</td><td>Pendente</td>
-                </tr>
-              </table>
-            </div>
-          </div>
+      <div class="lista-clientes" id="listaClientes">
       </div>
     </div>
   </main>
 
+
+  
   <div class="voltar-container">
     <button type="button" class="btn-voltar" onclick="window.location.href='gerenciamento.html'">
       Voltar
     </button>
   </div>
-  
 
   <footer>
     <p>© 2025 PlanWise. Todos os direitos reservados.</p>
   </footer>
+
+  <div id="modalCliente" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2 id="tituloModal">Cadastro de Clientes</h2>
+      <form id="formCadastroCliente">
+        <input type="text" id="nomeCliente" placeholder="Nome completo" required>
+        <input type="text" id="cpfCliente" placeholder="CPF" required>
+        <input type="email" id="emailCliente" placeholder="Email" required>
+        <input type="tel" id="telefoneCliente" placeholder="Telefone" required>
+        <input type="text" id="enderecoCliente" placeholder="Endereço" required>
+        <input type="text" id="servicoCliente" placeholder="Tipo de serviço" required>
+        <input type="text" id="observacoesCliente" placeholder="Observações" required>
+        <button type="submit">Confirmar</button>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>
