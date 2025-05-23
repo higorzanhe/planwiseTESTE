@@ -21,7 +21,7 @@
 
   <section id="inicio" class="inicio-container">
     <div class="imagem-container">
-      <img src="fundologin.jpeg" alt="Imagem principal" class="imagem-chamada" />
+      <img src="melhorando o ramo.jpg" alt="Imagem principal" class="imagem-chamada" />
       <div class="texto-sobre-imagem">Acesse agora uma agenda inteligente que mudará o ramo do seu negócio!</div>
     </div>
   </section>
@@ -40,7 +40,7 @@
 
         <div class="remember-forgot">
           <label><input type="checkbox" id="lembrarMe" /> Lembrar-me</label>
-          <a href="#" id="esqueciSenha">Esqueceu a senha?</a>
+          <a href="#" id="esqueciSenha" onclick="abrirModalSenha()">Esqueceu a senha?</a>
         </div>
 
         <button type="submit" class="botao-entrar">Entrar</button>
@@ -62,19 +62,34 @@
 
 
   <div id="modalSenha" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="fecharModalSenha()">&times;</span>
-    <h3>Redefinir Senha</h3>
-    <input type="email" id="emailRedefinir" placeholder="Digite seu email" required />
-    <input type="password" id="novaSenha" placeholder="Nova senha" required />
-    <button onclick="redefinirSenha()">Redefinir</button>
+    <div class="modal-content">
+      <span class="close" onclick="fecharModalSenha()">&times;</span>
+      <h3>Redefinir Senha</h3>
+      <input type="email" id="emailRedefinir" placeholder="Digite seu email" required />
+      
+      <select id="perguntaSelecionada" required>
+        <option value="">Escolha sua pergunta de segurança</option>
+        <option value="cachorro">Quem foi seu primeiro cachorro?</option>
+        <option value="professor">Nome da sua professora/professor preferido?</option>
+        <option value="cidade">Cidade onde nasceu?</option>
+        <option value="profissao">Sua profissão dos sonhos?</option>
+        <option value="cor">Sua cor favorita?</option>
+      </select>
+  
+      <input type="text" id="respostaSeguranca" placeholder="Resposta da pergunta" required />
+      <input type="password" id="novaSenha" placeholder="Nova senha" required />
+      <input type="password" id="confirmaSenha" placeholder="Confirmar nova senha" required />
+      
+      <button onclick="redefinirSenha()">Redefinir</button>
+    </div>
   </div>
-</div>
+  
 
   <footer>
     <p>&copy; 2025 PLANWISE. Todos os direitos reservados.</p>
   </footer>
 
   <script src="script-login.js"></script>
+
 </body>
 </html>
