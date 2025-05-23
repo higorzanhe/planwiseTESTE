@@ -1,38 +1,4 @@
-document.getElementById('loginForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  const email = document.getElementById('loginEmail').value.trim();
-  const senha = document.getElementById('loginSenha').value.trim();
-  const lembrarMe = document.getElementById('lembrarMe').checked;
-
-  if (!email || !senha) {
-    alert('Preencha todos os campos.');
-    return;
-  }
-
-  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  const usuario = usuarios.find(user => user.email === email && user.senha === senha);
-
-  if (usuario) {
-    if (lembrarMe) {
-      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-    } else {
-      sessionStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-    }
-
-    alert('Login realizado com sucesso!');
-    window.location.href = 'gerenciamento.html';
-  } else {
-    alert('Email ou senha incorretos.');
-  }
-});
-
-document.getElementById('esqueciSenha').addEventListener('click', function (e) {
-  e.preventDefault();
-  abrirModalSenha();
-});
-
-function abrirModalSenha() {
+css  function abrirModalSenha() {
   document.getElementById('modalSenha').style.display = 'block';
 }
 
@@ -42,22 +8,44 @@ function fecharModalSenha() {
 
 function redefinirSenha() {
   const email = document.getElementById('emailRedefinir').value.trim();
-  const novaSenha = document.getElementById('novaSenha').value.trim();
+  const pergunta = document.getElementById('perguntaSelecionada').value;
+  const resposta = document.getElementById('respostaSeguranca').value.trim().toLowerCase();
+  const novaSenha = document.getElementById('novaSenha').value;
+  const confirmaSenha = document.getElementById('confirmaSenha').value;
 
-  if (!email || !novaSenha) {
+  if (!email || !pergunta || !resposta || !novaSenha || !confirmaSenha) {
     alert('Preencha todos os campos.');
     return;
   }
 
-  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  if (novaSenha !== confirmaSenha) {
+    alert('As senhas não coincidem.');
+    return;
+  }
+
+  const senhaForte = /^(?=.*[!@#$%^&*])(?=.*\d).{8,}$/;
+  if (!senhaForte.test(novaSenha)) {
+    alert('A nova senha deve ter pelo menos 8 caracteres, incluir um número e um caractere especial.');
+    return;
+  }
+
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
   const index = usuarios.findIndex(user => user.email === email);
 
-  if (index !== -1) {
-    usuarios[index].senha = novaSenha;
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    alert('Senha redefinida com sucesso!');
-    fecharModalSenha();
-  } else {
-    alert('Email não encontrado.');
+  if (index === -1) {
+    alert('Usuário não encontrado.');
+    return;
   }
+
+  const usuario = usuarios[index];
+  if (usuario.pergunta !== pergunta || usuario.resposta !== resposta) {
+    alert('Pergunta ou resposta incorreta.');
+    return;
+  }
+
+  usuarios[index].senha = novaSenha;
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  alert('Senha redefinida com sucesso!');
+  fecharModalSenha();
 }
+
