@@ -8,16 +8,16 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-          <div class="logo-nav">PlanWise</div>
-          <ul class="menu">
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#login">Login</a></li>
-          </ul>
-        </nav>
-      </header>
+  <header>
+    <nav>
+      <div class="logo-nav">PlanWise</div>
+      <ul class="menu">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#login">Login</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <section id="inicio" class="inicio-container">
     <div class="imagem-container">
@@ -26,29 +26,27 @@
     </div>
   </section>
 
-
   <section id="login" class="login-section">
     <div class="container">
       <h1>Login</h1>
-      <form>
+      <form id="loginForm">
         <div class="input-box">
-          <input type="text" placeholder="Usuário" required />
+          <input type="email" id="loginEmail" placeholder="Email" required />
         </div>
 
         <div class="input-box">
-          <input type="password" placeholder="Senha" required />
+          <input type="password" id="loginSenha" placeholder="Senha" required />
         </div>
 
         <div class="remember-forgot">
-          <label><input type="checkbox" /> Lembrar-me</label>
-          <a href="#">Esqueceu a senha?</a>
+          <label><input type="checkbox" id="lembrarMe" /> Lembrar-me</label>
+          <a href="#" id="esqueciSenha">Esqueceu a senha?</a>
         </div>
 
-        <a href="index-homepage.html" class="botao-entrar">Entrar</a>
+        <button type="submit" class="botao-entrar">Entrar</button>
 
         <div class="register-link">
-          <p>Não tem uma conta? <a href="index-cadastro.html">Cadastre-se</a>
-
+          <p>Não tem uma conta? <a href="index-cadastro.html">Cadastre-se</a></p>
         </div>
       </form>
     </div>
@@ -58,16 +56,14 @@
     <img src="logoplanwise.jpeg" alt="Logo Planwise" class="logo-sobre" />
     <div class="sobre-texto">
       <h2>Sobre o Planwise</h2>
-      <p>
-        O Planwise é uma plataforma inteligente desenvolvida para transformar o modo como você organiza sua rotina e gerencia seus compromissos.
-      </p>
-
-         <script src="script-login.js"></script>
+      <p>O Planwise é uma plataforma inteligente desenvolvida para transformar o modo como você organiza sua rotina e gerencia seus compromissos.</p>
     </div>
   </section>
 
   <footer>
     <p>&copy; 2025 PLANWISE. Todos os direitos reservados.</p>
   </footer>
+
+  <script src="script-login.js"></script>
 </body>
 </html>
