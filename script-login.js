@@ -5,9 +5,8 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
   const senha = document.getElementById('loginSenha').value.trim();
   const lembrarMe = document.getElementById('lembrarMe').checked;
 
- 
-  if (email === '' || senha === '') {
-    alert('Por favor, preencha o email e a senha.');
+  if (!email || !senha) {
+    alert('Preencha todos os campos.');
     return;
   }
 
@@ -30,20 +29,35 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
 
 document.getElementById('esqueciSenha').addEventListener('click', function (e) {
   e.preventDefault();
+  abrirModalSenha();
+});
 
-  const email = document.getElementById('loginEmail').value.trim();
-  if (!email) {
-    alert('Digite seu email no campo para recuperar a senha.');
+function abrirModalSenha() {
+  document.getElementById('modalSenha').style.display = 'block';
+}
+
+function fecharModalSenha() {
+  document.getElementById('modalSenha').style.display = 'none';
+}
+
+function redefinirSenha() {
+  const email = document.getElementById('emailRedefinir').value.trim();
+  const novaSenha = document.getElementById('novaSenha').value.trim();
+
+  if (!email || !novaSenha) {
+    alert('Preencha todos os campos.');
     return;
   }
 
-  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  const usuario = usuarios.find(user => user.email === email);
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const index = usuarios.findIndex(user => user.email === email);
 
-  if (usuario) {
-    alert(`Sua senha é: ${usuario.senha}`);
+  if (index !== -1) {
+    usuarios[index].senha = novaSenha;
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    alert('Senha redefinida com sucesso!');
+    fecharModalSenha();
   } else {
     alert('Email não encontrado.');
   }
-});
-
+}
