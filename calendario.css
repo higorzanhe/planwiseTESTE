@@ -1,137 +1,202 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Karla', Arial, sans-serif;
 }
 
-<style>
+
 body {
-    font-family: 'Karla', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #0d5c75;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+  background: #FEFCFB;
+  color: #001F54;
+  min-height: 100vh;
+}
 
-  header {
-    background-color: #0d5c75;
-    padding: 15px 0;
-    text-align: center;
-    color: #FEFCFB;
-  }
+main {
+  max-width: 1100px;
+  margin: 32px auto 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(18,130,162,0.08);
+  padding: 32px 24px 24px 24px;
+}
 
-  header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-  }
+h2 {
+  color: #034078;
+  font-weight: bold;
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+}
 
-  h2 {
-    font-size: 2rem;
-    color: #0d5c75;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+footer {
+  background: #0d5c75;
+  color: #FEFCFB;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 1rem;
+  margin-top: 40px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
+}
 
+/* Formulário */
+form#formAgendamento {
+  background: #E6EAF0;
+  padding: 20px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(18,130,162,0.04);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #034078;
+}
+
+input.form-control,
+select.form-control {
+  border: 1px solid #E6E8EB;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1em;
+  margin-bottom: 12px;
+  background: #fff;
+  transition: border 0.2s;
+}
+
+input.form-control:focus,
+select.form-control:focus {
+  border-color: #1282A2;
+  outline: none;
+}
+
+button.btn-primary {
+  background: #034078;
+  color: #FEFCFB;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.2s, transform 0.2s;
+  padding: 10px 0;
+  border: none;
+  font-size: 1em;
+  margin-top: 8px;
+}
+
+button.btn-primary:hover {
+  background: #1282A2;
+  transform: scale(1.04);
+}
+
+button.btn-secondary {
+  background: #E6EAF0;
+  color: #034078;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  border: none;
+  padding: 10px 24px;
+  font-size: 1em;
+}
+
+button.btn-secondary:hover {
+  background: #1282A2;
+  color: #fff;
+  transform: scale(1.04);
+}
+
+/* Mensagem de sucesso */
+#mensagemSucesso {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1em;
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+/* Calendário FullCalendar */
+#calendario {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(18,130,162,0.04);
+  padding: 12px;
+  min-height: 500px;
+}
+
+.fc {
+  font-family: 'Karla', Arial, sans-serif;
+  background: transparent;
+}
+
+.fc-toolbar-title {
+  color: #034078;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.fc-button {
+  background: #E6EAF0 !important;
+  color: #034078 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  transition: background 0.2s !important;
+  font-family: 'Karla', Arial, sans-serif !important;
+}
+
+.fc-button:hover, .fc-button:focus {
+  background: #1282A2 !important;
+  color: #fff !important;
+}
+
+.fc-daygrid-event {
+  border-radius: 8px;
+  background: #1282A2;
+  color: #fff;
+  border: none;
+  font-size: 1em;
+  box-shadow: 0 2px 6px rgba(18,130,162,0.08);
+  padding: 2px 6px;
+}
+
+.fc-day-today {
+  background: #f0f8fa !important;
+}
+
+.fc-scrollgrid {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  main {
+    padding: 12px 2vw;
+  }
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    flex: 1;
+    padding: 0;
   }
-
-  #formAgendamento {
-    background-color: #ffffff;
-    border: 1px solid #0d5c75;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(18, 130, 162, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  #formAgendamento .form-label {
-    font-weight: bold;
-    color: #0d5c75;
-  }
-
-  #formAgendamento .form-control {
-    border: 1px solid #0d5c75;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    width: 100%;
-  }
-
-  #formAgendamento .form-control:focus {
-    border-color: #0d5c75;
-    box-shadow: 0 0 5px rgba(18, 130, 162, 0.5);
-    outline: none;
-  }
-
-  #formAgendamento button[type="submit"] {
-    background-color: #0d5c75;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  #formAgendamento button[type="submit"]:hover {
-    background-color: #1282a2;
-  }
-
-  #mensagemSucesso {
-    font-size: 0.9rem;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #0d5c75;
-    color: #ffffff;
-    border: 1px solid #1282a2;
-    display: none;
-  }
-
   #calendario {
-    background-color: #ffffff;
-    border: 1px solid #0d5c75;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(18, 130, 162, 0.1);
+    min-height: 350px;
+    padding: 4px;
   }
+}
 
-  footer {
-    background-color: #0d5c75;
-    color: #FEFCFB;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: auto;
+@media (max-width: 600px) {
+  main {
+    padding: 4px 0;
   }
-
-  button.btn.btn-secondary {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #0d5c75;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.2s ease, transform 0.2s ease;
+  .row {
+    flex-direction: column;
   }
-
-  button.btn.btn-secondary:hover {
-    background-color: #1282a2;
-    transform: scale(1.05);
+  .col-md-4, .col-md-8 {
+    width: 100%;
+    max-width: 100%;
   }
-</style>
+  #calendario {
+    min-height: 250px;
+    padding: 2px;
+  }
+}
