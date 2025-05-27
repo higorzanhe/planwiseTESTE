@@ -48,3 +48,24 @@ function redefinirSenha() {
   alert('Senha redefinida com sucesso!');
   fecharModalSenha();
 }
+
+
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Impede o envio do formulário
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value;
+
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+  const usuarioValido = usuarios.find(user => user.email === email && user.senha === senha);
+
+  if (usuarioValido) {
+    alert('Login bem-sucedido!');
+    // Aqui você pode redirecionar para a próxima página
+    window.location.href = 'pagina-de-gerenciamento.html'; // troque pelo nome correto da página
+  } else {
+    alert('Email ou senha inválidos.');
+  }
+});
