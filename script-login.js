@@ -1,4 +1,4 @@
-css  function abrirModalSenha() {
+function abrirModalSenha() {
   document.getElementById('modalSenha').style.display = 'block';
 }
 
@@ -48,4 +48,3 @@ function redefinirSenha() {
   alert('Senha redefinida com sucesso!');
   fecharModalSenha();
 }
-
