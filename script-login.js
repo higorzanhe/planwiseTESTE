@@ -64,7 +64,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   if (usuarioValido) {
     alert('Login bem-sucedido!');
     // Aqui você pode redirecionar para a próxima página
-    window.location.href = 'pagina-de-gerenciamento.html'; // troque pelo nome correto da página
+    window.location.href = 'gerenciamento.html'; // troque pelo nome correto da página
   } else {
     alert('Email ou senha inválidos.');
   }
