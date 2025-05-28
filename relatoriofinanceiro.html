@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="relatoriofinanceiro.css" />
+  <script src="relatoriofianceiro.js"></script>
   <title>Relatório Financeiro</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
         <span>à</span>
         <input type="date" />
       </div>
-      <button class="add-button" onclick="window.location.href='fluxodecaixa.html'">Adicionar Transação</button>
+      <button class="add-button" onclick="window.location.href='../controledecaixa/fluxodecaixa.html'">Adicionar Transação</button>
       <div class="form-container" id="formContainer" style="display: none;">
         <h4>Nova Transação</h4>
         <form id="transactionForm">
@@ -43,15 +44,15 @@
     <div class="resumo">
       <div class="box entrada">
         <label>Entrada</label>
-        <h3>2.599,90</h3>
+        <h3>R$ 2.599,90</h3>
       </div>
       <div class="box receber">
         <label>A Receber</label>
-        <h3>255,00</h3>
+        <h3>R$ 255,00</h3>
       </div>
       <div class="box saida">
         <label>Saída</label>
-        <h3>1564,00</h3>
+        <h3>R$ 1.564,00</h3>
       </div>
     </div>
 
@@ -78,7 +79,7 @@
       </div>
     </div>
     <div>
-      <button class="voltar" onclick="window.location.href='index-homepage.html'">Voltar</button>
+      <button class="voltar" onclick="window.location.href='../pagina-Home/index-homepage.html'">Voltar</button>
     </div>
   </main>
   <script src="script.js"></script>
