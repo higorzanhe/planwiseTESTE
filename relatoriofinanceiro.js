@@ -1,58 +1,177 @@
-const transacoes = [
-  { data: '2025-05-03', nome: 'Amanda', descricao: 'Cabelo | Unha', valor: 150.00, tipo: 'entrada' },
-  { data: '2025-05-03', nome: 'Ana Luiza', descricao: 'Unha', valor: 50.00, tipo: 'entrada' },
-  { data: '2025-05-02', nome: 'Material', descricao: 'Esmaltes | Acetona', valor: 100.00, tipo: 'saida' },
-  { data: '2025-05-01', nome: 'Material', descricao: 'Algodão', valor: 30.00, tipo: 'saida' },
-  { data: '2025-05-01', nome: 'Carla', descricao: 'Cabelo', valor: 200.00, tipo: 'entrada' }
-];
-
-function atualizarDashboard() {
-  let entrada = 0, saida = 0, aReceber = 255;
-
-  transacoes.forEach(transacao => {
-    if (transacao.tipo === 'entrada') entrada += transacao.valor;
-    if (transacao.tipo === 'saida') saida += transacao.valor;
-  });
-
-  document.getElementById('entrada').innerText = entrada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  document.getElementById('saida').innerText = saida.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  document.getElementById('a-receber').innerText = aReceber.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-  document.getElementById('saldo').innerText = (entrada + aReceber - saida).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-  renderizarTransacoes();
-}
-
-function renderizarTransacoes() {
-  const lista = document.getElementById('lista-transacoes');
-  lista.innerHTML = '';
-
-  const agrupadas = {};
-
-  transacoes.forEach(t => {
-    const dia = new Date(t.data).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit' });
-    if (!agrupadas[dia]) agrupadas[dia] = [];
-    agrupadas[dia].push(t);
-  });
-
-  Object.keys(agrupadas).forEach(dia => {
-    const grupo = document.createElement('div');
-    grupo.innerHTML = `<strong>${dia.charAt(0).toUpperCase() + dia.slice(1)}</strong>`;
-    
-    agrupadas[dia].forEach(t => {
-      const item = document.createElement('div');
-      item.innerHTML = `
-        ${t.nome}<br/>
-        ${t.descricao}<br/>
-        <span style="color: ${t.tipo === 'saida' ? 'red' : 'black'}">R$ ${t.valor.toFixed(2)}</span><br/>
-      `;
-      grupo.appendChild(item);
+function formatarData(dataStr) {
+    const data = new Date(dataStr);
+    return data.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
     });
+  }
+  
+  function formatarValor(valor) {
+    return parseFloat(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+  
+  function carregarTransacoes() {
+    return JSON.parse(localStorage.getItem('transacoes')) || [];
+  }
+  
+  function salvarTransacoes(transacoes) {
+    localStorage.setItem('transacoes', JSON.stringify(transacoes));
+  }
+  
+  function atualizarInterface() {
+    const transacoes = carregarTransacoes();
+    const lista = document.getElementById('lista-transacoes');
+    lista.innerHTML = '';
+  
+    let entrada = 0, saida = 0, aReceber = 0;
+  
+    const tipoLabel = {
+      entrada: 'Entrada',
+      saida: 'Saída',
+      areceber: 'A Receber'
+    };
+  
+    transacoes.forEach((t, index) => {
+      const valor = parseFloat(t.valor);
+      if (t.tipo === 'entrada') entrada += valor;
+      else if (t.tipo === 'saida') saida += valor;
+      else if (t.tipo === 'areceber') aReceber += valor;
+  
+      const item = document.createElement('div');
+      item.classList.add('transacao');
+      const classeValor = t.tipo === 'saida' ? 'negativo' : 'positivo';
+  
+      item.innerHTML = `
+        <strong>${formatarData(t.data)}</strong>
+        <p>${t.descricao}</p>
+        <p>${tipoLabel[t.tipo] || t.tipo}</p>
+        <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
+        <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+      `;
+  
+      lista.appendChild(item);
+    });
+  
+    document.getElementById('entrada').textContent = formatarValor(entrada);
+    document.getElementById('saida').textContent = formatarValor(saida);
+    document.getElementById('areceber').textContent = formatarValor(aReceber);
+    document.getElementById('saldo').textContent = formatarValor(entrada - saida);
+  }
+  
 
-    lista.appendChild(grupo);
+  let indexEditando = null;
+  
+  // Formulário: adicionar ou editar
+  document.getElementById('form-transacao').addEventListener('submit', function (e) {
+    e.preventDefault();
+  
+    const data = document.getElementById('data').value;
+    const descricao = document.getElementById('descricao').value;
+    const valor = document.getElementById('valor').value;
+    const tipo = document.getElementById('tipo').value;
+  
+    if (!data || !descricao || !valor || !tipo) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+  
+    const transacoes = carregarTransacoes();
+  
+    if (indexEditando !== null) {
+      // Editando transação existente
+      transacoes[indexEditando] = { data, descricao, valor, tipo };
+      indexEditando = null;
+    } else {
+      // Adicionando nova transação
+      transacoes.push({ data, descricao, valor, tipo });
+    }
+  
+    salvarTransacoes(transacoes);
+    atualizarInterface();
+  
+    this.reset();
+    document.getElementById('modal').style.display = 'none';
   });
-}
-
-
-window.onload = () => {
-  atualizarDashboard();
-};
+  
+  // Abrir modal para adicionar
+  document.getElementById('abrir-modal').addEventListener('click', function () {
+    indexEditando = null; // resetar modo de edição
+    document.getElementById('form-transacao').reset();
+    document.getElementById('modal').style.display = 'flex';
+  });
+  
+  // Fechar modal
+  document.getElementById('fechar-modal').addEventListener('click', function () {
+    document.getElementById('modal').style.display = 'none';
+    indexEditando = null;
+  });
+  
+  // Editar transação
+  function editarTransacao(index) {
+    const transacoes = carregarTransacoes();
+    const t = transacoes[index];
+  
+    document.getElementById('data').value = t.data;
+    document.getElementById('descricao').value = t.descricao;
+    document.getElementById('valor').value = t.valor;
+    document.getElementById('tipo').value = t.tipo;
+  
+    indexEditando = index;
+    document.getElementById('modal').style.display = 'flex';
+  }
+  
+  // Filtro de data
+  document.getElementById('filtro').addEventListener('click', () => {
+    const de = new Date(document.getElementById('filtro-de').value);
+    const ate = new Date(document.getElementById('filtro-ate').value);
+  
+    if (isNaN(de) || isNaN(ate)) {
+      alert('Selecione um intervalo de datas.');
+      return;
+    }
+  
+    const transacoes = carregarTransacoes().filter(t => {
+      const data = new Date(t.data);
+      return data >= de && data <= ate;
+    });
+  
+    const lista = document.getElementById('lista-transacoes');
+    lista.innerHTML = '';
+  
+    let entrada = 0, saida = 0, aReceber = 0;
+  
+    const tipoLabel = {
+      entrada: 'Entrada',
+      saida: 'Saída',
+      areceber: 'A Receber'
+    };
+  
+    transacoes.forEach((t, index) => {
+      const valor = parseFloat(t.valor);
+      if (t.tipo === 'entrada') entrada += valor;
+      else if (t.tipo === 'saida') saida += valor;
+      else if (t.tipo === 'areceber') aReceber += valor;
+  
+      const dataFormatada = formatarData(t.data);
+      const classeValor = t.tipo === 'saida' ? 'negativo' : 'positivo';
+  
+      const item = document.createElement('div');
+      item.classList.add('transacao');
+  
+      item.innerHTML = `
+        <strong>${dataFormatada}</strong>
+        <p>${t.descricao}</p>
+        <p>${tipoLabel[t.tipo] || t.tipo}</p>
+        <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
+        <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+      `;
+  
+      lista.appendChild(item);
+    });
+  
+    document.getElementById('entrada').textContent = formatarValor(entrada);
+    document.getElementById('saida').textContent = formatarValor(saida);
+    document.getElementById('areceber').textContent = formatarValor(aReceber);
+  });
+  
