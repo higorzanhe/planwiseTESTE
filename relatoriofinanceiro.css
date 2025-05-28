@@ -21,6 +21,7 @@ header {
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
+  text-align: center;
 }
 
 .date-range {
@@ -32,7 +33,7 @@ header {
 
 .date-range label {
   font-weight: bold;
-  color: #1282a2;
+  color: #f3f6f7;
 }
 
 .date-range input[type="date"] {
@@ -214,10 +215,6 @@ form button[type="submit"]:hover {
   right: 30px;
   box-shadow: 0 4px 8px rgba(18,130,162,0.10);
   z-index: 1000;
-}
-
-.voltar:hover {
-  background-color: #0d5c75;
 }
 
 .voltar:hover {
