@@ -1,90 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="relatoriofinanceiro.css" />
-  <script src="relatoriofianceiro.js"></script>
   <title>Relatório Financeiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="relatoriofinanceiro.css" />
 </head>
+
 <body>
-  <main>
+  <header class="header">
     <div class="container">
       <h1>Relatório Financeiro</h1>
     </div>
-    <header class="header">
-      <div class="date-range">
-        <label>Exibir relatório</label>
-        <input type="date" />
-        <span>à</span>
-        <input type="date" />
-      </div>
-      <button class="add-button" onclick="window.location.href='../controledecaixa/fluxodecaixa.html'">Adicionar Transação</button>
-      <div class="form-container" id="formContainer" style="display: none;">
-        <h4>Nova Transação</h4>
-        <form id="transactionForm">
-          <input type="date" id="data" required />
-          <input type="text" id="descricao" placeholder="Descrição" required />
-          <input type="text" id="detalhe" placeholder="Detalhes" />
-          <input type="number" id="valor" placeholder="Valor (R$)" required />
-          <select id="tipo" required>
-            <option value="entrada">Entrada</option>
-            <option value="saida">Saída</option>
-          </select>
-          <button type="submit">Salvar</button>
-        </form>
-      </div>
-    </header>
+  </header>
 
-    <div class="saldo">
-      <h2>Saldo em contas</h2>
-      <p class="valor-total">R$ 3.580,90</p>
-    </div>
-
+  <main>
     <div class="resumo">
-      <div class="box entrada">
-        <label>Entrada</label>
-        <h3>R$ 2.599,90</h3>
+        <div class="box">
+          <label>Entrada</label>
+          <h3 id="entrada">R$ 0,00</h3>
+        </div>
+        <div class="box">
+          <label>A Receber</label>
+          <h3 id="areceber">R$ 0,00</h3>
+        </div>
+        <div class="box">
+          <label>Saída</label>
+          <h3 id="saida">R$ 0,00</h3>
+        </div>
       </div>
-      <div class="box receber">
-        <label>A Receber</label>
-        <h3>R$ 255,00</h3>
+      
+      <div class="saldo">
+        <h2>Saldo em Contas</h2>
+        <div class="valor-total" id="saldo">R$ 0,00</div>
       </div>
-      <div class="box saida">
-        <label>Saída</label>
-        <h3>R$ 1.564,00</h3>
-      </div>
+      
     </div>
 
-    <div class="transacoes">
-      <h4>Últimas transações</h4>
-      <div class="transacao">
-        <strong>Quinta, 03</strong>
-        <p>Amanda<br /><span class="detalhe">Cabelo | Unha</span></p>
-        <span class="positivo">R$ 150,00</span>
-        <p>Ana Luiza<br /><span class="detalhe">Unha</span></p>
-        <span class="positivo">R$ 50,00</span>
+    <div class="date-range">
+        <label>Exibir relatório:</label>
+        <input type="date" id="filtro-de" />
+        <span>à</span>
+        <input type="date" id="filtro-ate" />
+        <button id="filtro">Filtrar</button>
+        <button id="abrir-modal" class="add-button">Adicionar Transação</button>
       </div>
-      <div class="transacao destaque">
-        <strong>Quarta, 02</strong>
-        <p>Material<br /><span class="detalhe">Esmaltes | Acetona</span></p>
-        <span class="negativo"> - R$ 100,00</span>
-      </div>
-      <div class="transacao">
-        <strong>Terça, 01</strong>
-        <p>Material<br /><span class="detalhe">Algodão</span></p>
-        <span class="negativo"> - R$ 30,00</span>
-        <p>Carla<br /><span class="detalhe">Cabelo</span></p>
-        <span class="positivo">R$ 100,00</span>
-      </div>
-    </div>
-    <div>
-      <button class="voltar" onclick="window.location.href='../pagina-Home/index-homepage.html'">Voltar</button>
-    </div>
+
+      
+
+      <section class="transacoes">
+        <h4>Últimas transações</h4>
+        <div id="lista-transacoes"></div>
+      </section>      
   </main>
-  <script src="relatoriofinanceiro.js"></script>
+
   <footer>
     <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
   </footer>
+
+  <button class="voltar" onclick="window.location.href='homepage.html'">Voltar</button>
+
+
+
+
+<div id="modal" class="modal" style="display: none;">
+    <div class="form-container">
+      <form id="form-transacao">
+        <input type="date" id="data" required />
+        <input type="text" id="descricao" placeholder="Descrição" required />
+        <input type="number" id="valor" placeholder="Valor" required />
+        <select id="tipo">
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+          <option value="areceber">A Receber</option>
+        </select>
+        <button type="submit">Salvar</button>
+        <button type="button" id="fechar-modal">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  
+</div>
+
+  </div>
+
+  <script src="relatoriofinanceiro.js"></script>
+
 </body>
+
 </html>
