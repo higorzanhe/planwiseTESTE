@@ -15,14 +15,21 @@
     flex-direction: column;
   }
 
-  header {
+  .cabecalho-site {
     background-color: #0d5c75;
-    padding: 1rem;
-    color: white;
+    padding: 15px 0;
     text-align: center;
-    font-size: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+  
+  .logo-nav {
+    color: white;
+    font-size: 32px;
     font-weight: bold;
-  } 
+  }
+  
+
   .saldo, .resumo {
     text-align: center;
     margin: 1rem;
@@ -107,7 +114,7 @@
   }
 
   
-  /* Estilo de cada item de transação */
+
   .transacao {
     display: flex;
     justify-content: space-between;
@@ -127,16 +134,26 @@
     color: #2ecc71;
   }
 
-  .voltar {
+  .voltar-container {
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background-color: #1282a2;
-    color: white;
-    padding: 0.5rem 1rem;
+    bottom: 80px;
+    right: 30px;
+    z-index: 1000;
+  }
+  
+  .btn-voltar {
+    background-color: #0d5c75;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn-voltar:hover {
+    background-color: #1282a2;
   }
 
   footer {
@@ -147,7 +164,7 @@
     margin-top: auto;
   }
 
- /* Modal centralizado e em formato de caixa */
+ 
  .modal {
     position: fixed;
     top: 0;
@@ -190,3 +207,65 @@
     border-radius: 6px;
     cursor: pointer;
   }
+
+ 
+.transacao button {
+    padding: 0.4rem 1rem;
+    background-color: #1282a2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .botoes-transacao {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .excluir-button {
+    padding: 0.4rem 1rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  
+
+  @media (max-width: 768px) {
+    .resumo {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .date-range {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .date-range input,
+    .date-range button {
+      width: 100%;
+    }
+  
+    .transacao {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+  
+    .transacao button {
+      align-self: flex-end;
+    }
+  
+    .form-container {
+      width: 100%;
+      max-width: 95%;
+    }
+  }
+  
