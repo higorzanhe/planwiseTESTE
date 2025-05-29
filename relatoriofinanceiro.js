@@ -46,6 +46,7 @@ function formatarData(dataStr) {
         <strong>${formatarData(t.data)}</strong>
         <p>${t.descricao}</p>
         <p>${tipoLabel[t.tipo] || t.tipo}</p>
+        <p>Método: ${t.metodo || 'Não informado'}</p>
         <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
         <div class="botoes-transacao">
           <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
@@ -62,9 +63,7 @@ function formatarData(dataStr) {
     document.getElementById('saldo').textContent = formatarValor(entrada - saida);
   }
   
-
   let indexEditando = null;
-  
   
   document.getElementById('form-transacao').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -73,6 +72,7 @@ function formatarData(dataStr) {
     const descricao = document.getElementById('descricao').value;
     const valor = document.getElementById('valor').value;
     const tipo = document.getElementById('tipo').value;
+    const metodo = document.getElementById('metodoPagamento').value;
   
     if (!data || !descricao || !valor || !tipo) {
       alert('Preencha todos os campos!');
@@ -82,12 +82,10 @@ function formatarData(dataStr) {
     const transacoes = carregarTransacoes();
   
     if (indexEditando !== null) {
-   
-      transacoes[indexEditando] = { data, descricao, valor, tipo };
+      transacoes[indexEditando] = { data, descricao, valor, tipo, metodo };
       indexEditando = null;
     } else {
-     
-      transacoes.push({ data, descricao, valor, tipo });
+      transacoes.push({ data, descricao, valor, tipo, metodo });
     }
   
     salvarTransacoes(transacoes);
@@ -97,20 +95,17 @@ function formatarData(dataStr) {
     document.getElementById('modal').style.display = 'none';
   });
   
-
   document.getElementById('abrir-modal').addEventListener('click', function () {
     indexEditando = null;
     document.getElementById('form-transacao').reset();
     document.getElementById('modal').style.display = 'flex';
   });
   
-
   document.getElementById('fechar-modal').addEventListener('click', function () {
     document.getElementById('modal').style.display = 'none';
     indexEditando = null;
   });
   
-
   function editarTransacao(index) {
     const transacoes = carregarTransacoes();
     const t = transacoes[index];
@@ -119,12 +114,12 @@ function formatarData(dataStr) {
     document.getElementById('descricao').value = t.descricao;
     document.getElementById('valor').value = t.valor;
     document.getElementById('tipo').value = t.tipo;
+    document.getElementById('metodoPagamento').value = t.metodo || '';
   
     indexEditando = index;
     document.getElementById('modal').style.display = 'flex';
   }
   
-
   function excluirTransacao(index) {
     if (confirm("Tem certeza que deseja excluir esta transação?")) {
       const transacoes = carregarTransacoes();
@@ -134,16 +129,13 @@ function formatarData(dataStr) {
     }
   }
   
-
   document.getElementById('filtro').addEventListener('click', () => {
     const inputDe = document.getElementById('filtro-de').value;
     const inputAte = document.getElementById('filtro-ate').value;
-    
-    const de = new Date(inputDe + 'T00:00:00');  
-    const ate = new Date(inputAte + 'T23:59:59'); 
-
-   
-      
+  
+    const de = new Date(inputDe + 'T00:00:00');
+    const ate = new Date(inputAte + 'T23:59:59');
+  
     if (isNaN(de) || isNaN(ate)) {
       alert('Selecione um intervalo de datas.');
       return;
@@ -180,6 +172,7 @@ function formatarData(dataStr) {
         <strong>${formatarData(t.data)}</strong>
         <p>${t.descricao}</p>
         <p>${tipoLabel[t.tipo] || t.tipo}</p>
+        <p>Método: ${t.metodo || 'Não informado'}</p>
         <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
         <div class="botoes-transacao">
           <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
@@ -194,8 +187,5 @@ function formatarData(dataStr) {
     document.getElementById('saida').textContent = formatarValor(saida);
     document.getElementById('areceber').textContent = formatarValor(aReceber);
   });
-
-
   
-
   atualizarInterface();
