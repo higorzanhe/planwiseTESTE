@@ -1,28 +1,36 @@
-
 <!DOCTYPE html>
-</doctype><html lang="pt-BR">
+<html lang="pt-BR">
 <head>
-    <title>Cadastro de Clientes</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="cadastrodeclientes.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clientes</title>
+  <link rel="stylesheet" href="clientes.css" />
 </head>
-<body>
-    <div class="container">
-        <h1>Cadastro de Clientes</h1>
-        <h5>Cadastre aqui seus clientes</h5>
-        <form>
-            <input type="text" placeholder="Nome completo" required>
-            <input type="text" placeholder="CPF" required>
-            <input type="email" placeholder="Email" required>
-            <input type="tel" placeholder="Telefone" required>
-            <input type="text" placeholder="Endereço" required>
-            <input type="text" placeholder="Tipo de serviço" required>
-            <input type="text" placeholder="Observações" required>
-            <button type="submit">Confirmar</button>
+<body class="clientes">
 
-        </form>
+  <header class="cabecalho-site">
+    <div class="logo-nav">Clientes</div>
+  </header>
+
+  <main>
+    <div class="clientes-container">
+      <div class="top-bar">
+        <input type="text" class="pesquisa" placeholder="Pesquisar cliente..." oninput="filtrarClientes()" />
+        <button class="btn-adicionar" onclick="abrirModal()">Adicionar novo cliente</button>
+      </div>
+
+      <div class="lista-clientes" id="listaClientes"></div>
     </div>
+  </main>
 
-    <button class="btn-voltar" onclick="window.location.href='clientes.html'">Voltar</button>
+  <div class="voltar-container">
+    <button type="button" class="btn-voltar" onclick="window.location.href='gerenciamento.html'">Voltar</button>
+  </div>
+
+  <footer>
+    <p>© 2025 PlanWise. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="clientes.js"></script>
 </body>
 </html>
