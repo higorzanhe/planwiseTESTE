@@ -301,4 +301,23 @@ document.addEventListener('DOMContentLoaded', function () {
             window.open(url, '_blank');
         };
     }
+
+    // Geração de link único para o cliente (GitHub Pages)
+    if (document.getElementById('btnGerarLink')) {
+        document.getElementById('btnGerarLink').addEventListener('click', function () {
+            const nomeUsuario = document.getElementById('nome').value.trim().toLowerCase().replace(/\s+/g, '');
+            if (!nomeUsuario) {
+                alert('Digite o nome do cliente para gerar o link.');
+                return;
+            }
+            const idUnico = btoa(nomeUsuario);
+            const link = `https://higorzanhe.github.io/planwiseTESTE/form-agendamento-cliente.html?usuario=${idUnico}`;
+            const input = document.getElementById('linkCliente');
+            input.value = link;
+            input.select();
+            navigator.clipboard.writeText(link);
+            this.textContent = 'Link copiado!';
+            setTimeout(() => { this.textContent = 'Gerar link de agendamento do cliente'; }, 2000);
+        });
+    }
 });

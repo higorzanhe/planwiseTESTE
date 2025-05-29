@@ -19,6 +19,14 @@
           <input type="text" id="filtroNome" class="form-control" style="max-width:220px" placeholder="Filtrar por nome">
         </div>
         <div class="col-auto">
+          <select id="filtroServico" class="form-control">
+            <option value="">Todos os serviços</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <input type="date" id="filtroData" class="form-control">
+        </div>
+        <div class="col-auto">
           <button type="button" id="btnAplicarFiltros" class="btn btn-primary btn-sm">Aplicar filtro</button>
         </div>
         <div class="col-auto">
@@ -28,6 +36,15 @@
           <button type="button" id="btnExportarGoogle" class="btn btn-outline-primary btn-sm">Google Agenda</button>
         </div>
       </form>
+
+      <!-- Link único para o formulário do cliente -->
+      <div class="text-center my-4">
+        <div class="input-group justify-content-center" style="max-width:500px;margin:auto;">
+          <input type="text" id="linkCliente" class="form-control" readonly>
+          <button class="btn btn-success" type="button" id="btnGerarLink">Gerar link de agendamento do cliente</button>
+        </div>
+        <small class="text-muted d-block mt-2">Clique para gerar e copiar o link único para o cliente realizar o agendamento.</small>
+      </div>
 
       <div class="row">
         <div class="col-md-4 mb-4">
@@ -60,7 +77,7 @@
       </div>
 
       <div class="voltar-container">
-        <button class="btn-voltar" onclick="history.back()">Voltar</button>
+        <button class="btn-voltar" onclick="window.location.href='index-index-homepage.html'">Voltar</button>
       </div>
     </div>
   </main>
@@ -68,21 +85,6 @@
     © 2025 PlanWise. Todos os direitos reservados.
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const calendarEl = document.getElementById('calendario');
-      // Inicializa o calendário em português
-      new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'pt-br',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        }
-      }).render();
-    });
-  </script>
   <script src="calendario.js"></script>
 </body>
 </html>
