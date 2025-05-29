@@ -1,4 +1,5 @@
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+let editandoServico = null;
 
 function exibirClientes(listaClientes = clientes) {
   const lista = document.getElementById("listaClientes");
@@ -28,7 +29,7 @@ function exibirClientes(listaClientes = clientes) {
 
       <div class="adicionar-servico">
         <h3>Adicionar Serviço</h3>
-        <form onsubmit="adicionarServico(event, ${index})">
+        <form onsubmit="adicionarServico(event, ${index})" id="form-servico-${index}">
           <input type="text" name="nome" placeholder="Nome do serviço" required />
           <input type="date" name="data" required />
           <input type="number" name="valor" placeholder="Valor (R$)" required />
@@ -61,7 +62,10 @@ function gerarTabelaServicos(servicos, clienteIndex) {
       <td>${servico.nome}</td>
       <td>${servico.data}</td>
       <td>R$ ${parseFloat(servico.valor).toFixed(2)}</td>
-      <td><button class="remover-servico" onclick="removerServico(${clienteIndex}, ${servicoIndex})">Remover</button></td>
+      <td>
+        <button onclick="editarServico(${clienteIndex}, ${servicoIndex})">Editar</button>
+        <button class="remover-servico" onclick="removerServico(${clienteIndex}, ${servicoIndex})">Remover</button>
+      </td>
     </tr>
   `).join("");
 
@@ -86,13 +90,35 @@ function adicionarServico(event, index) {
     valor: valor.value
   };
 
-  if (!clientes[index].servicos) {
-    clientes[index].servicos = [];
+  if (editandoServico && editandoServico.indexCliente === index) {
+    // Modo de edição de serviço
+    clientes[index].servicos[editandoServico.indexServico] = novoServico;
+    editandoServico = null;
+    form.querySelector("button[type=submit]").textContent = "Adicionar";
+  } else {
+    // Modo de adição normal
+    if (!clientes[index].servicos) {
+      clientes[index].servicos = [];
+    }
+    clientes[index].servicos.push(novoServico);
   }
 
-  clientes[index].servicos.push(novoServico);
   localStorage.setItem("clientes", JSON.stringify(clientes));
+  form.reset();
   exibirClientes();
+}
+
+function editarServico(indexCliente, indexServico) {
+  const cliente = clientes[indexCliente];
+  const servico = cliente.servicos[indexServico];
+  const form = document.getElementById(`form-servico-${indexCliente}`);
+
+  form.nome.value = servico.nome;
+  form.data.value = servico.data;
+  form.valor.value = servico.valor;
+
+  form.querySelector("button[type=submit]").textContent = "Salvar";
+  editandoServico = { indexCliente, indexServico };
 }
 
 function removerServico(clienteIndex, servicoIndex) {
