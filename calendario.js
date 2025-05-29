@@ -302,15 +302,14 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    // Geração de link único para o cliente (GitHub Pages)
+    // Geração de link único, complexo e fixo para o usuário interno
     if (document.getElementById('btnGerarLink')) {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
-            const nomeUsuario = document.getElementById('nome').value.trim().toLowerCase().replace(/\s+/g, '');
-            if (!nomeUsuario) {
-                alert('Digite o nome do cliente para gerar o link.');
-                return;
-            }
-            const idUnico = btoa(nomeUsuario);
+            // Exemplo: identificador complexo e fixo para o usuário interno
+            // Troque pelo campo real do usuário interno do seu sistema
+            const usuarioInterno = "usuario@empresa.com"; // Exemplo fixo, troque pelo valor real
+            const salt = "planwise2025";
+            const idUnico = btoa(encodeURIComponent(usuarioInterno + ':' + salt));
             const link = `https://higorzanhe.github.io/planwiseTESTE/form-agendamento-cliente.html?usuario=${idUnico}`;
             const input = document.getElementById('linkCliente');
             input.value = link;
@@ -320,4 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => { this.textContent = 'Gerar link de agendamento do cliente'; }, 2000);
         });
     }
+
+    // Inicializa o calendário na tela
+    atualizarCalendario();
 });
