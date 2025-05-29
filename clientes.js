@@ -64,3 +64,34 @@ function filtrarClientes() {
     div.style.display = texto.includes(filtro) ? "" : "none";
   });
 }
+
+
+  abrirModal();
+
+
+  const form = document.getElementById("formCadastroCliente");
+  form.onsubmit = function (event) {
+    event.preventDefault();
+
+    const clienteEditado = {
+      nome: document.getElementById("nomeCliente").value,
+      cpf: document.getElementById("cpfCliente").value,
+      email: document.getElementById("emailCliente").value,
+      telefone: document.getElementById("telefoneCliente").value,
+      endereco: document.getElementById("enderecoCliente").value,
+      servico: document.getElementById("servicoCliente").value,
+      observacoes: document.getElementById("observacoesCliente").value
+    };
+
+    clientes[index] = clienteEditado;
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+    fecharModal();
+    exibirClientes();
+  };
+}
+
+
+window.onload = () => {
+  document.getElementById("formCadastroCliente").onsubmit = cadastrarCliente;
+  exibirClientes();
+};
