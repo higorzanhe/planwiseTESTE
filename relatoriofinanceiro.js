@@ -47,7 +47,10 @@ function formatarData(dataStr) {
         <p>${t.descricao}</p>
         <p>${tipoLabel[t.tipo] || t.tipo}</p>
         <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
-        <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+        <div class="botoes-transacao">
+          <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+          <button class="excluir-button" onclick="excluirTransacao(${index})">Excluir</button>
+        </div>
       `;
   
       lista.appendChild(item);
@@ -62,7 +65,7 @@ function formatarData(dataStr) {
 
   let indexEditando = null;
   
-  // Formulário: adicionar ou editar
+  
   document.getElementById('form-transacao').addEventListener('submit', function (e) {
     e.preventDefault();
   
@@ -79,11 +82,11 @@ function formatarData(dataStr) {
     const transacoes = carregarTransacoes();
   
     if (indexEditando !== null) {
-      // Editando transação existente
+   
       transacoes[indexEditando] = { data, descricao, valor, tipo };
       indexEditando = null;
     } else {
-      // Adicionando nova transação
+     
       transacoes.push({ data, descricao, valor, tipo });
     }
   
@@ -94,20 +97,20 @@ function formatarData(dataStr) {
     document.getElementById('modal').style.display = 'none';
   });
   
-  // Abrir modal para adicionar
+
   document.getElementById('abrir-modal').addEventListener('click', function () {
-    indexEditando = null; // resetar modo de edição
+    indexEditando = null;
     document.getElementById('form-transacao').reset();
     document.getElementById('modal').style.display = 'flex';
   });
   
-  // Fechar modal
+
   document.getElementById('fechar-modal').addEventListener('click', function () {
     document.getElementById('modal').style.display = 'none';
     indexEditando = null;
   });
   
-  // Editar transação
+
   function editarTransacao(index) {
     const transacoes = carregarTransacoes();
     const t = transacoes[index];
@@ -121,11 +124,26 @@ function formatarData(dataStr) {
     document.getElementById('modal').style.display = 'flex';
   }
   
-  // Filtro de data
-  document.getElementById('filtro').addEventListener('click', () => {
-    const de = new Date(document.getElementById('filtro-de').value);
-    const ate = new Date(document.getElementById('filtro-ate').value);
+
+  function excluirTransacao(index) {
+    if (confirm("Tem certeza que deseja excluir esta transação?")) {
+      const transacoes = carregarTransacoes();
+      transacoes.splice(index, 1);
+      salvarTransacoes(transacoes);
+      atualizarInterface();
+    }
+  }
   
+
+  document.getElementById('filtro').addEventListener('click', () => {
+    const inputDe = document.getElementById('filtro-de').value;
+    const inputAte = document.getElementById('filtro-ate').value;
+    
+    const de = new Date(inputDe + 'T00:00:00');  
+    const ate = new Date(inputAte + 'T23:59:59'); 
+
+   
+      
     if (isNaN(de) || isNaN(ate)) {
       alert('Selecione um intervalo de datas.');
       return;
@@ -153,18 +171,20 @@ function formatarData(dataStr) {
       else if (t.tipo === 'saida') saida += valor;
       else if (t.tipo === 'areceber') aReceber += valor;
   
-      const dataFormatada = formatarData(t.data);
       const classeValor = t.tipo === 'saida' ? 'negativo' : 'positivo';
   
       const item = document.createElement('div');
       item.classList.add('transacao');
   
       item.innerHTML = `
-        <strong>${dataFormatada}</strong>
+        <strong>${formatarData(t.data)}</strong>
         <p>${t.descricao}</p>
         <p>${tipoLabel[t.tipo] || t.tipo}</p>
         <p><span class="${classeValor}">${formatarValor(valor)}</span></p>
-        <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+        <div class="botoes-transacao">
+          <button class="add-button" onclick="editarTransacao(${index})">Editar</button>
+          <button class="excluir-button" onclick="excluirTransacao(${index})">Excluir</button>
+        </div>
       `;
   
       lista.appendChild(item);
@@ -174,4 +194,8 @@ function formatarData(dataStr) {
     document.getElementById('saida').textContent = formatarValor(saida);
     document.getElementById('areceber').textContent = formatarValor(aReceber);
   });
+
+
   
+
+  atualizarInterface();
