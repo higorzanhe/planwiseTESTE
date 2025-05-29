@@ -32,16 +32,41 @@
     <p>© 2025 PlanWise. Todos os direitos reservados.</p>
   </footer>
 
+  <!-- Modal de Cadastro de Cliente -->
   <div id="modalCliente" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal()">&times;</span>
       <h2 id="tituloModal">Cadastro de Clientes</h2>
-      <form id="formCadastroCliente">
+      <form id="formCadastroCliente" onsubmit="salvarCliente(event)">
         <input type="text" id="nomeCliente" placeholder="Nome completo" required />
         <input type="text" id="cpfCliente" placeholder="CPF" required />
         <input type="email" id="emailCliente" placeholder="Email" required />
         <input type="tel" id="telefoneCliente" placeholder="Telefone" required />
         <input type="text" id="enderecoCliente" placeholder="Endereço" required />
+
+        <!-- Botão para mostrar formulário de serviço -->
+        <button type="button" onclick="alternarFormularioServico()">Adicionar Serviço</button>
+
+        <!-- Formulário de serviço oculto inicialmente -->
+        <div id="formularioServico" class="formulario-servico" style="display: none;">
+          <h3>Adicionar Novo Serviço</h3>
+          <input type="text" id="descricaoServico" placeholder="Descrição do serviço" required />
+          <input type="number" id="valorServico" placeholder="Valor (R$)" required />
+          <button type="button" onclick="adicionarServico()">Adicionar</button>
+        </div>
+
+        <!-- Tabela com os serviços adicionados -->
+        <table class="tabela-servicos" id="tabelaServicos">
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Valor (R$)</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
         <button type="submit">Confirmar</button>
       </form>
     </div>
