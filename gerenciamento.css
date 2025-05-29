@@ -38,7 +38,7 @@
     justify-content: center;
     text-decoration: none;
     align-items: stretch; 
-    gap: 40px;
+    gap: 45px;
     flex-wrap: wrap;
     max-width: 1000px;
     margin: 0 auto;
@@ -52,8 +52,8 @@
     text-decoration: none;
     border-radius: 8px;
     padding: 30px 20px;
-    width: 200px; 
-    height: 200px;
+    width: 260px; 
+    height: 260px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -65,7 +65,7 @@
   }
   
   .card i {
-    font-size: 40px;
+    font-size: 110px;
     margin-bottom: 15px;
     color: #0d5c75;
   }
