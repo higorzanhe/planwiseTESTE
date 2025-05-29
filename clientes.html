@@ -32,5 +32,23 @@
   </footer>
 
   <script src="clientes.js"></script>
+ <div id="modalCliente" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2 id="tituloModal">Cadastro de Clientes</h2>
+      <form id="formCadastroCliente">
+        <input type="text" id="nomeCliente" placeholder="Nome completo" required>
+        <input type="text" id="cpfCliente" placeholder="CPF" required>
+        <input type="email" id="emailCliente" placeholder="Email" required>
+        <input type="tel" id="telefoneCliente" placeholder="Telefone" required>
+        <input type="text" id="enderecoCliente" placeholder="Endereço" required>
+        <input type="text" id="servicoCliente" placeholder="Tipo de serviço" required>
+        <input type="text" id="observacoesCliente" placeholder="Observações" required>
+        <button type="submit">Confirmar</button>
+      </form>
+    </div>
+  </div>
+
+
 </body>
 </html>
