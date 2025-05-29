@@ -391,3 +391,14 @@ footer {
 .tabela-servicos .remover-servico:hover {
   background-color: #c82333;
 }
+
+/* Formulário de Adicionar Serviço com Toggle */
+.formulario-servico {
+  display: none;
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.formulario-servico.ativo {
+  display: block;
+}
