@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clientes</title>
   <link rel="stylesheet" href="clientes.css" />
+  <script defer src="clientes.js"></script>
 </head>
 <body class="clientes">
 
@@ -19,20 +20,24 @@
         <button class="btn-adicionar" onclick="abrirModal()">Adicionar novo cliente</button>
       </div>
 
-      <div class="lista-clientes" id="listaClientes"></div>
+      <div class="lista-clientes" id="listaClientes">
+      </div>
     </div>
   </main>
 
+
+  
   <div class="voltar-container">
-    <button type="button" class="btn-voltar" onclick="window.location.href='gerenciamento.html'">Voltar</button>
+    <button type="button" class="btn-voltar" onclick="window.location.href='gerenciamento.html'">
+      Voltar
+    </button>
   </div>
 
   <footer>
     <p>© 2025 PlanWise. Todos os direitos reservados.</p>
   </footer>
 
-  <script src="clientes.js"></script>
- <div id="modalCliente" class="modal">
+  <div id="modalCliente" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal()">&times;</span>
       <h2 id="tituloModal">Cadastro de Clientes</h2>
@@ -48,7 +53,6 @@
       </form>
     </div>
   </div>
-
 
 </body>
 </html>
