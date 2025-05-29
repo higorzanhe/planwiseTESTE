@@ -28,14 +28,15 @@ function exibirClientes(listaClientes = clientes) {
       <p><strong>Endereço:</strong> ${cliente.endereco}</p>
 
       <div class="adicionar-servico">
-        <h3>Adicionar Serviço</h3>
-        <form onsubmit="adicionarServico(event, ${index})" id="form-servico-${index}">
+        <button onclick="mostrarFormularioServico(${index})" id="btn-mostrar-servico-${index}">+ Adicionar Serviço</button>
+        <form onsubmit="adicionarServico(event, ${index})" id="form-servico-${index}" style="display: none; margin-top: 10px;">
           <input type="text" name="nome" placeholder="Nome do serviço" required />
           <input type="date" name="data" required />
           <input type="number" name="valor" placeholder="Valor (R$)" required />
           <button type="submit">Adicionar</button>
         </form>
       </div>
+
       <div id="tabela-servicos-${index}">
         ${gerarTabelaServicos(cliente.servicos || [], index)}
       </div>
@@ -50,6 +51,15 @@ function exibirClientes(listaClientes = clientes) {
     clienteDiv.appendChild(detalhes);
     lista.appendChild(clienteDiv);
   });
+}
+
+function mostrarFormularioServico(index) {
+  const form = document.getElementById(`form-servico-${index}`);
+  const botao = document.getElementById(`btn-mostrar-servico-${index}`);
+  const visivel = form.style.display === "block";
+
+  form.style.display = visivel ? "none" : "block";
+  botao.textContent = visivel ? "+ Adicionar Serviço" : "Cancelar";
 }
 
 function gerarTabelaServicos(servicos, clienteIndex) {
@@ -91,12 +101,10 @@ function adicionarServico(event, index) {
   };
 
   if (editandoServico && editandoServico.indexCliente === index) {
-    // Modo de edição de serviço
     clientes[index].servicos[editandoServico.indexServico] = novoServico;
     editandoServico = null;
     form.querySelector("button[type=submit]").textContent = "Adicionar";
   } else {
-    // Modo de adição normal
     if (!clientes[index].servicos) {
       clientes[index].servicos = [];
     }
@@ -105,6 +113,8 @@ function adicionarServico(event, index) {
 
   localStorage.setItem("clientes", JSON.stringify(clientes));
   form.reset();
+  form.style.display = "none";
+  document.getElementById(`btn-mostrar-servico-${index}`).textContent = "+ Adicionar Serviço";
   exibirClientes();
 }
 
@@ -117,6 +127,8 @@ function editarServico(indexCliente, indexServico) {
   form.data.value = servico.data;
   form.valor.value = servico.valor;
 
+  form.style.display = "block";
+  document.getElementById(`btn-mostrar-servico-${indexCliente}`).textContent = "Cancelar";
   form.querySelector("button[type=submit]").textContent = "Salvar";
   editandoServico = { indexCliente, indexServico };
 }
