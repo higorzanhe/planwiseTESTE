@@ -1,124 +1,66 @@
-
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
-
 
 function exibirClientes() {
   const lista = document.getElementById("listaClientes");
-  lista.innerHTML = ""; // limpa lista atual
+  lista.innerHTML = "";
 
   clientes.forEach((cliente, index) => {
     const clienteDiv = document.createElement("div");
     clienteDiv.classList.add("cliente");
 
-    const headerBtn = document.createElement("button");
-    headerBtn.classList.add("cliente-header");
-    headerBtn.innerText = `${cliente.nome} ▼`;
-    headerBtn.onclick = () => {
-      detalhesDiv.style.display = detalhesDiv.style.display === "block" ? "none" : "block";
+    const header = document.createElement("div");
+    header.classList.add("cliente-header");
+    header.textContent = `${cliente.nome} - ${cliente.cpf}`;
+    header.onclick = () => {
+      detalhes.style.display = detalhes.style.display === "block" ? "none" : "block";
     };
 
-    const detalhesDiv = document.createElement("div");
-    detalhesDiv.classList.add("cliente-detalhes");
-    detalhesDiv.innerHTML = `
-      <table>
-        <tr><th>CPF</th><th>Serviço</th><th>Observação</th></tr>
-        <tr><td>${cliente.cpf}</td><td>${cliente.servico}</td><td>${cliente.observacoes}</td></tr>
-      </table>
-      <div style="margin-top: 10px;">
-        <button onclick="editarCliente(${index})">Editar</button>
-        <button onclick="excluirCliente(${index})">Excluir</button>
-      </div>
+    const detalhes = document.createElement("div");
+    detalhes.classList.add("cliente-detalhes");
+
+    detalhes.innerHTML = `
+      <p><strong>Email:</strong> ${cliente.email}</p>
+      <p><strong>Telefone:</strong> ${cliente.telefone}</p>
+      <p><strong>Endereço:</strong> ${cliente.endereco}</p>
+      <h4>Serviços Realizados:</h4>
+      <ul id="servicos-${index}">
+        ${cliente.servicos?.map(s => `<li>${s.data} - ${s.descricao}</li>`).join('') || "<li>Nenhum serviço ainda.</li>"}
+      </ul>
+      <form onsubmit="adicionarServico(event, ${index})">
+        <input type="text" name="descricao" placeholder="Descrição do serviço" required />
+        <input type="date" name="data" required />
+        <button type="submit">Adicionar Serviço</button>
+      </form>
     `;
 
-    clienteDiv.appendChild(headerBtn);
-    clienteDiv.appendChild(detalhesDiv);
+    clienteDiv.appendChild(header);
+    clienteDiv.appendChild(detalhes);
     lista.appendChild(clienteDiv);
   });
 }
 
+function adicionarServico(e, index) {
+  e.preventDefault();
+  const descricao = e.target.descricao.value;
+  const data = e.target.data.value;
 
-function abrirModal() {
-  document.getElementById("modalCliente").style.display = "block";
-}
+  if (!descricao || !data) return;
 
+  if (!clientes[index].servicos) clientes[index].servicos = [];
+  clientes[index].servicos.push({ descricao, data });
 
-function fecharModal() {
-  document.getElementById("modalCliente").style.display = "none";
-  document.getElementById("formCadastroCliente").reset();
-
-
-  document.getElementById("formCadastroCliente").onsubmit = cadastrarCliente;
-}
-
-
-function cadastrarCliente(event) {
-  event.preventDefault();
-
-  const novoCliente = {
-    nome: document.getElementById("nomeCliente").value,
-    cpf: document.getElementById("cpfCliente").value,
-    email: document.getElementById("emailCliente").value,
-    telefone: document.getElementById("telefoneCliente").value,
-    endereco: document.getElementById("enderecoCliente").value,
-    servico: document.getElementById("servicoCliente").value,
-    observacoes: document.getElementById("observacoesCliente").value
-  };
-
-  clientes.push(novoCliente);
   localStorage.setItem("clientes", JSON.stringify(clientes));
-
-  fecharModal();
   exibirClientes();
 }
 
+window.onload = exibirClientes;
 
-function excluirCliente(index) {
-  if (confirm("Tem certeza que deseja excluir este cliente?")) {
-    clientes.splice(index, 1);
-    localStorage.setItem("clientes", JSON.stringify(clientes));
-    exibirClientes();
-  }
+// Opcional: função para filtrar clientes no input de pesquisa
+function filtrarClientes() {
+  const filtro = document.querySelector(".pesquisa").value.toLowerCase();
+  const lista = document.getElementById("listaClientes");
+  lista.childNodes.forEach(div => {
+    const texto = div.querySelector(".cliente-header").textContent.toLowerCase();
+    div.style.display = texto.includes(filtro) ? "" : "none";
+  });
 }
-
-
-function editarCliente(index) {
-  const cliente = clientes[index];
-
- 
-  document.getElementById("nomeCliente").value = cliente.nome;
-  document.getElementById("cpfCliente").value = cliente.cpf;
-  document.getElementById("emailCliente").value = cliente.email;
-  document.getElementById("telefoneCliente").value = cliente.telefone;
-  document.getElementById("enderecoCliente").value = cliente.endereco;
-  document.getElementById("servicoCliente").value = cliente.servico;
-  document.getElementById("observacoesCliente").value = cliente.observacoes;
-
-  abrirModal();
-
-
-  const form = document.getElementById("formCadastroCliente");
-  form.onsubmit = function (event) {
-    event.preventDefault();
-
-    const clienteEditado = {
-      nome: document.getElementById("nomeCliente").value,
-      cpf: document.getElementById("cpfCliente").value,
-      email: document.getElementById("emailCliente").value,
-      telefone: document.getElementById("telefoneCliente").value,
-      endereco: document.getElementById("enderecoCliente").value,
-      servico: document.getElementById("servicoCliente").value,
-      observacoes: document.getElementById("observacoesCliente").value
-    };
-
-    clientes[index] = clienteEditado;
-    localStorage.setItem("clientes", JSON.stringify(clientes));
-    fecharModal();
-    exibirClientes();
-  };
-}
-
-
-window.onload = () => {
-  document.getElementById("formCadastroCliente").onsubmit = cadastrarCliente;
-  exibirClientes();
-};

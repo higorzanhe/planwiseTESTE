@@ -37,9 +37,9 @@
     display: flex;
     justify-content: center;
     text-decoration: none;
-    align-items: stretch; 
-    gap: 40px;
-    flex-wrap: wrap;
+    align-items: stretch; /* deixa os cards do mesmo tamanho */
+    gap: 50px;
+    flex-wrap: wrap; /* garante que seja responsivo */
     max-width: 1000px;
     margin: 0 auto;
     text-decoration: none;
@@ -52,8 +52,8 @@
     text-decoration: none;
     border-radius: 8px;
     padding: 30px 20px;
-    width: 200px; 
-    height: 200px;
+    width: 260px; /* garante que os cards fiquem lado a lado */
+    height: 260px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -65,7 +65,7 @@
   }
   
   .card i {
-    font-size: 40px;
+    font-size: 100px;
     margin-bottom: 15px;
     color: #0d5c75;
   }
@@ -136,4 +136,3 @@
       max-width: 300px;
     }
   }
-  

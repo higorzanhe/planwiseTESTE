@@ -111,7 +111,7 @@ body.homepage {
 
 .botoes-topo {
   position: fixed;
-  top: 15px;
+  top: 85px;
   right: 20px;
   display: flex;
   gap: 10px;
@@ -122,8 +122,8 @@ body.homepage {
 
 
 .btn-sair {
-  background-color: #034078;
-  color: #FEFCFB;
+  background-color: #0d5c75;
+  color: #fff;
   border: none;
   padding: 10px 14px;
   border-radius: 8px;

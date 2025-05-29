@@ -10,9 +10,8 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="container">
-      <h1>Relatório Financeiro</h1>
+  <header class="cabecalho-site">
+    <div class="logo-nav">Relatório Financeiro</div>
     </div>
   </header>
 
@@ -60,7 +59,11 @@
     <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
   </footer>
 
-  <button class="voltar" onclick="window.location.href='homepage.html'">Voltar</button>
+  <div class="voltar-container">
+    <button class="btn-voltar" onclick="window.location.href='index-homepage.html'">Voltar</button>
+  </div>
+</main>
+
 
 
 
@@ -74,8 +77,14 @@
         <select id="tipo">
           <option value="entrada">Entrada</option>
           <option value="saida">Saída</option>
-          <option value="areceber">A Receber</option>
         </select>
+        <select id="metodoPagamento">
+            <option value="">Selecione</option>
+            <option value="Débito">Débito</option>
+            <option value="Crédito">Crédito</option>
+            <option value="Pix">Pix</option>
+            <option value="Dinheiro">Dinheiro</option>
+          </select>        
         <button type="submit">Salvar</button>
         <button type="button" id="fechar-modal">Cancelar</button>
       </form>
@@ -91,3 +100,4 @@
 </body>
 
 </html>
+
