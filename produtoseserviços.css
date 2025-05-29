@@ -8,16 +8,19 @@
 }
 
 body {
-    background: #FEFCFB;
+    background: #f7fafc;
     color: #001F54;
     min-height: 100vh;
 }
 
 header {
-    background: #0d5c75;
+    background: #034078;
     color: #fff;
     padding: 18px 0 12px 0;
     text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
@@ -43,8 +46,8 @@ h2 {
 }
 
 footer {
-    background: #0d5c75;
-    color: #FEFCFB;
+    background: #034078;
+    color: #fff;
     text-align: center;
     padding: 16px 0;
     font-size: 1rem;
@@ -52,6 +55,7 @@ footer {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
+    letter-spacing: 0.5px;
 }
 
 form#formProduto, form#formServico {
@@ -181,6 +185,28 @@ input:focus, select:focus, textarea:focus {
     text-align: end !important;
 }
 
+/* Botão voltar igual gerenciamento */
+.voltar-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+.btn-voltar {
+    background: #034078;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 28px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn-voltar:hover {
+    background: #1282A2;
+    transform: scale(1.04);
+}
+
 @media (max-width: 900px) {
     main {
         padding: 12px 2vw;
@@ -199,5 +225,21 @@ input:focus, select:focus, textarea:focus {
     }
     .table th, .table td {
         padding: 8px 6px;
+    }
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 4px 0;
+    }
+    .row {
+        flex-direction: column;
+    }
+    .col-md-4, .col-md-8 {
+        width: 100%;
+        max-width: 100%;
+    }
+    .table {
+        font-size: 0.92em;
     }
 }

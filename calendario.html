@@ -10,7 +10,25 @@
 <body>
   <main>
     <div class="container">
+
       <h2 class="mb-4 text-center">Agendamento de Horário</h2>
+
+      <!-- Filtro apenas por nome + Google Agenda -->
+      <form id="formFiltros" class="row g-2 align-items-center mb-3" autocomplete="off" onsubmit="return false;">
+        <div class="col-auto">
+          <input type="text" id="filtroNome" class="form-control" style="max-width:220px" placeholder="Filtrar por nome">
+        </div>
+        <div class="col-auto">
+          <button type="button" id="btnAplicarFiltros" class="btn btn-primary btn-sm">Aplicar filtro</button>
+        </div>
+        <div class="col-auto">
+          <button type="button" id="btnLimparFiltros" class="btn btn-outline-secondary btn-sm">Limpar</button>
+        </div>
+        <div class="col-auto">
+          <button type="button" id="btnExportarGoogle" class="btn btn-outline-primary btn-sm">Google Agenda</button>
+        </div>
+      </form>
+
       <div class="row">
         <div class="col-md-4 mb-4">
           <form id="formAgendamento" autocomplete="off" aria-label="Formulário de Agendamento">
@@ -40,15 +58,31 @@
           <div id="calendario" aria-label="Calendário de Agendamentos"></div>
         </div>
       </div>
-  
-      <button type="button" class="btn btn-secondary mt-4 float-end me-2" onclick="window.location.href='../pagina-Home/index-homepage.html'">Voltar</button>
+
+      <div class="voltar-container">
+        <button class="btn-voltar" onclick="history.back()">Voltar</button>
+      </div>
     </div>
   </main>
   <footer>
-    <p>&copy; 2025 PlanWise. Todos os direitos reservados.</p>
+    © 2025 PlanWise. Todos os direitos reservados.
   </footer>
-  
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendario');
+      // Inicializa o calendário em português
+      new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }
+      }).render();
+    });
+  </script>
   <script src="calendario.js"></script>
 </body>
 </html>

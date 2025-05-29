@@ -1,15 +1,12 @@
+/* Reset e fonte */
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
-
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
   font-family: 'Karla', Arial, sans-serif;
 }
 
-
 body {
-  background: #FEFCFB;
+  background: #f7fafc;
   color: #001F54;
   min-height: 100vh;
 }
@@ -30,16 +27,61 @@ h2 {
   font-size: 1.6rem;
 }
 
-footer {
-  background: #0d5c75;
-  color: #FEFCFB;
-  text-align: center;
-  padding: 16px 0;
-  font-size: 1rem;
-  margin-top: 40px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
+/* Filtros */
+#formFiltros {
+  background: #e6eaf0;
+  border-radius: 12px;
+  padding: 16px 12px;
+  box-shadow: 0 2px 8px rgba(18,130,162,0.04);
+  margin-bottom: 28px;
+  gap: 10px;
+}
+#formFiltros input,
+#formFiltros select {
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1em;
+  padding: 8px 12px;
+  background: #fff;
+  transition: border 0.2s;
+}
+#formFiltros input:focus,
+#formFiltros select:focus {
+  border-color: #1282A2;
+  outline: none;
+}
+#formFiltros button {
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.98em;
+  padding: 8px 16px;
+  transition: background 0.2s, color 0.2s;
+}
+#btnAplicarFiltros {
+  background: #034078;
+  color: #fff;
+  border: none;
+}
+#btnAplicarFiltros:hover {
+  background: #1282A2;
+}
+#btnLimparFiltros {
+  background: #fff;
+  color: #034078;
+  border: 1px solid #034078;
+}
+#btnLimparFiltros:hover {
+  background: #034078;
+  color: #fff;
+}
+#btnExportarGoogle {
+  background: #fff;
+  color: #1282A2;
+  border: 1px solid #1282A2;
+}
+#btnExportarGoogle:hover {
+  background: #1282A2;
+  color: #fff;
 }
 
 /* Formulário */
@@ -153,21 +195,103 @@ button.btn-secondary:hover {
 
 .fc-daygrid-event {
   border-radius: 8px;
-  background: #1282A2;
-  color: #fff;
   border: none;
   font-size: 1em;
   box-shadow: 0 2px 6px rgba(18,130,162,0.08);
   padding: 2px 6px;
+  cursor: pointer;
 }
 
-.fc-day-today {
-  background: #f0f8fa !important;
+/* Tooltip para eventos */
+.fc-event-title, .fc-event-main {
+  position: relative;
+  cursor: pointer;
+}
+.fc-event[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0; top: 100%;
+  background: #034078;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.95em;
+  white-space: pre-line;
+  z-index: 10;
+  margin-top: 2px;
 }
 
-.fc-scrollgrid {
-  border-radius: 12px;
-  overflow: hidden;
+/* Overlay acessível */
+.fc-dia-overlay[aria-modal="true"] {
+  outline: none;
+}
+.fc-dia-overlay-content:focus {
+  outline: 2px solid #1282A2;
+}
+
+/* Overlay customização */
+.fc-dia-overlay {
+  animation: fadeIn 0.2s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fc-dia-overlay-content {
+  animation: slideDown 0.25s;
+}
+@keyframes slideDown {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Overlay botões */
+.fc-dia-overlay-content .btn {
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+.fc-dia-overlay-content .btn-exportar {
+  background: #20bf6b;
+  color: #fff;
+  border: none;
+}
+.fc-dia-overlay-content .btn-exportar:hover {
+  background: #158a4c;
+  color: #fff;
+}
+
+/* Botão voltar e rodapé igual gerenciamento.html */
+.voltar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+.btn-voltar {
+  background: #034078;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-voltar:hover {
+  background: #1282A2;
+  transform: scale(1.04);
+}
+footer {
+  background: #034078;
+  color: #fff;
+  text-align: center;
+  padding: 18px 0 12px 0;
+  font-size: 1rem;
+  margin-top: 40px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
+  letter-spacing: 0.5px;
 }
 
 /* Responsividade */
@@ -198,5 +322,16 @@ button.btn-secondary:hover {
   #calendario {
     min-height: 250px;
     padding: 2px;
+  }
+  #formFiltros {
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 10px 4px;
+  }
+  #formFiltros input,
+  #formFiltros select,
+  #formFiltros button {
+    width: 100% !important;
+    margin-bottom: 6px;
   }
 }
