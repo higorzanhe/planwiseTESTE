@@ -3,34 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Clientes</title>
-  <link rel="stylesheet" href="clientes.css" />
+  <title>Cadastro de Clientes</title>
+  <link rel="stylesheet" href="cadastrodeclientes.css" />
 </head>
-<body class="clientes">
-
-  <header class="cabecalho-site">
-    <div class="logo-nav">Clientes</div>
-  </header>
-
-  <main>
-    <div class="clientes-container">
-      <div class="top-bar">
-        <input type="text" class="pesquisa" placeholder="Pesquisar cliente..." oninput="filtrarClientes()" />
-        <button class="btn-adicionar" onclick="abrirModal()">Adicionar novo cliente</button>
-      </div>
-
-      <div class="lista-clientes" id="listaClientes"></div>
-    </div>
-  </main>
-
-  <div class="voltar-container">
-    <button type="button" class="btn-voltar" onclick="window.location.href='gerenciamento.html'">Voltar</button>
+<body>
+  <div class="container">
+    <h1>Cadastro de Clientes</h1>
+    <h5>Cadastre aqui seus clientes</h5>
+    <form id="formCadastroCliente">
+      <input type="text" placeholder="Nome completo" required />
+      <input type="text" placeholder="CPF" required />
+      <input type="email" placeholder="Email" required />
+      <input type="tel" placeholder="Telefone" required />
+      <input type="text" placeholder="Endereço" required />
+      <button type="submit">Confirmar</button>
+    </form>
   </div>
 
-  <footer>
-    <p>© 2025 PlanWise. Todos os direitos reservados.</p>
-  </footer>
+  <button class="btn-voltar" onclick="window.location.href='clientes.html'">Voltar</button>
 
-  <script src="clientes.js"></script>
+  <script src="cadastrodeclientes.js"></script>
 </body>
 </html>
