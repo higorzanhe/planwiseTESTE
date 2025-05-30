@@ -10,25 +10,26 @@ document.addEventListener('DOMContentLoaded', function () {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
 
-    // Preencher selects de serviço (dinâmico)
+    // Carrega serviços cadastrados em produtoseserviços (localStorage)
+    function getServicosCadastrados() {
+        return JSON.parse(localStorage.getItem('servicos')) || [];
+    }
+
+    // Preencher selects de serviço a partir dos serviços cadastrados
     const selectServico = document.getElementById('descricao');
     const filtroServico = document.getElementById('filtroServico');
     function atualizarSelectServicos() {
-        const eventos = getAgendamentos();
-        const servicosUnicos = Array.from(new Set(eventos.map(ev => {
-            const [_, servico] = ev.title.split(' - ');
-            return (ev.servico || servico || '').trim();
-        }).filter(Boolean)));
+        const servicos = getServicosCadastrados();
         [selectServico, filtroServico].forEach(sel => {
             if (!sel) return;
             const valorAtual = sel.value;
             sel.innerHTML = sel === filtroServico
                 ? '<option value="">Todos os serviços</option>'
                 : '<option value="">Selecione um serviço</option>';
-            servicosUnicos.forEach(servico => {
+            servicos.forEach(servico => {
                 const option = document.createElement('option');
-                option.value = servico;
-                option.textContent = servico;
+                option.value = servico.nome;
+                option.textContent = servico.nome + (servico.preco ? ` - R$ ${parseFloat(servico.preco).toFixed(2)}` : '');
                 sel.appendChild(option);
             });
             sel.value = valorAtual;
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Filtro de eventos
     function filtrarAgendamentos(arr) {
-        let nome = filtrosAtuais.nome.toLowerCase() || '';
+        let nome = filtrosAtuais.nome ? filtrosAtuais.nome.toLowerCase() : '';
         let servico = filtrosAtuais.servico || '';
         let data = filtrosAtuais.data || '';
         return arr.filter(ev => {
@@ -96,19 +97,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Botões de filtro
-    document.getElementById('btnAplicarFiltros').onclick = function() {
-        filtrosAtuais.nome = filtroNome.value;
-        filtrosAtuais.servico = filtroServico.value;
-        filtrosAtuais.data = filtroData.value;
-        atualizarCalendario();
-    };
-    document.getElementById('btnLimparFiltros').onclick = function() {
-        filtroNome.value = '';
-        filtroServico.value = '';
-        filtroData.value = '';
-        filtrosAtuais = { nome: '', servico: '', data: '' };
-        atualizarCalendario();
-    };
+    if (document.getElementById('btnAplicarFiltros')) {
+        document.getElementById('btnAplicarFiltros').onclick = function() {
+            filtrosAtuais.nome = filtroNome.value;
+            filtrosAtuais.servico = filtroServico.value;
+            filtrosAtuais.data = filtroData.value;
+            atualizarCalendario();
+        };
+    }
+    if (document.getElementById('btnLimparFiltros')) {
+        document.getElementById('btnLimparFiltros').onclick = function() {
+            filtroNome.value = '';
+            filtroServico.value = '';
+            filtroData.value = '';
+            filtrosAtuais = { nome: '', servico: '', data: '' };
+            atualizarCalendario();
+        };
+    }
 
     // Exclui um agendamento pelo id
     function excluirAgendamento(id, dateStr) {
