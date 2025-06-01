@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Karla', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Karla', sans-serif;
 }
 
 body {
@@ -13,16 +13,18 @@ body {
     min-height: 100vh;
 }
 
-header {
-    background: #034078;
-    color: #fff;
-    padding: 18px 0 12px 0;
+.cabecalho-site {
+    background-color: #0d5c75;
+    padding: 15px 0;
     text-align: center;
-    font-size: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-nav {
+    color: white;
+    font-size: 32px;
     font-weight: bold;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
+  }
 
 main {
     max-width: 1100px;
@@ -45,18 +47,15 @@ h2 {
     font-size: 1.3rem;
 }
 
-footer {
-    background: #034078;
-    color: #fff;
+
+  footer {
+    background-color: #0d5c75;
+    color: white;
     text-align: center;
-    padding: 16px 0;
-    font-size: 1rem;
-    margin-top: 40px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
-    letter-spacing: 0.5px;
-}
+    padding: 1rem;
+    margin-top: auto;
+  }
+
 
 form#formProduto, form#formServico {
     background: #E6EAF0;
@@ -99,8 +98,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-primary {
-    background: #034078;
-    color: #FEFCFB;
+    background: #0d5c75;
+    color: #fff;
 }
 .btn-primary:hover {
     background: #1282A2;
@@ -127,8 +126,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-secondary {
-    background: #E6EAF0;
-    color: #034078;
+    background: #0d5c75;
+    color: #fff;
 }
 .btn-secondary:hover {
     background: #1282A2;
@@ -192,20 +191,19 @@ input:focus, select:focus, textarea:focus {
     margin-top: 24px;
 }
 .btn-voltar {
-    background: #034078;
+    background-color: #0d5c75;
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 10px 28px;
-    font-size: 1em;
-    font-weight: bold;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-}
-.btn-voltar:hover {
-    background: #1282A2;
-    transform: scale(1.04);
-}
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn-voltar:hover {
+    background-color: #1282a2;
+  }
 
 @media (max-width: 900px) {
     main {
@@ -239,6 +237,10 @@ input:focus, select:focus, textarea:focus {
         width: 100%;
         max-width: 100%;
     }
+    .table {
+        font-size: 0.92em;
+    }
+}
     .table {
         font-size: 0.92em;
     }

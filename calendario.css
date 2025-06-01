@@ -1,4 +1,3 @@
-/* Reset e fonte */
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 * {
   box-sizing: border-box;
@@ -20,14 +19,22 @@ main {
   padding: 32px 24px 24px 24px;
 }
 
-h2 {
-  color: #034078;
-  font-weight: bold;
-  margin-bottom: 24px;
-  font-size: 1.6rem;
+.cabecalho-site {
+  background-color: #0d5c75;
+  padding: 15px 0;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Filtros */
+.logo-nav {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+
+
+/
 #formFiltros {
   background: #e6eaf0;
   border-radius: 12px;
@@ -58,7 +65,7 @@ h2 {
   transition: background 0.2s, color 0.2s;
 }
 #btnAplicarFiltros {
-  background: #034078;
+  background: #0d5c75;
   color: #fff;
   border: none;
 }
@@ -67,24 +74,25 @@ h2 {
 }
 #btnLimparFiltros {
   background: #fff;
-  color: #034078;
-  border: 1px solid #034078;
+  color: #0d5c75;
+  border: 1px solid #0d5c75;
 }
 #btnLimparFiltros:hover {
-  background: #034078;
+  background: #1282A2;
   color: #fff;
 }
 #btnExportarGoogle {
   background: #fff;
-  color: #1282A2;
-  border: 1px solid #1282A2;
+  color: #0d5c75;
+  border: 1px solid #0d5c75;
 }
 #btnExportarGoogle:hover {
   background: #1282A2;
   color: #fff;
 }
 
-/* Formulário */
+
+
 form#formAgendamento {
   background: #E6EAF0;
   padding: 20px 16px;
@@ -115,7 +123,7 @@ select.form-control:focus {
 }
 
 button.btn-primary {
-  background: #034078;
+  background: #0d5c75;
   color: #FEFCFB;
   border-radius: 8px;
   font-weight: bold;
@@ -133,7 +141,7 @@ button.btn-primary:hover {
 
 button.btn-secondary {
   background: #E6EAF0;
-  color: #034078;
+  color: #0d5c75;
   border-radius: 8px;
   font-weight: bold;
   transition: background 0.2s, color 0.2s, transform 0.2s;
@@ -148,7 +156,8 @@ button.btn-secondary:hover {
   transform: scale(1.04);
 }
 
-/* Mensagem de sucesso */
+
+
 #mensagemSucesso {
   border-radius: 8px;
   font-weight: 600;
@@ -158,7 +167,8 @@ button.btn-secondary:hover {
   border: 1px solid #badbcc;
 }
 
-/* Calendário FullCalendar */
+
+
 #calendario {
   background: #fff;
   border-radius: 16px;
@@ -180,7 +190,7 @@ button.btn-secondary:hover {
 
 .fc-button {
   background: #E6EAF0 !important;
-  color: #034078 !important;
+  color: #0d5c75 !important;
   border: none !important;
   border-radius: 8px !important;
   font-weight: bold !important;
@@ -202,7 +212,9 @@ button.btn-secondary:hover {
   cursor: pointer;
 }
 
-/* Tooltip para eventos */
+
+
+
 .fc-event-title, .fc-event-main {
   position: relative;
   cursor: pointer;
@@ -221,7 +233,9 @@ button.btn-secondary:hover {
   margin-top: 2px;
 }
 
-/* Overlay acessível */
+
+
+
 .fc-dia-overlay[aria-modal="true"] {
   outline: none;
 }
@@ -229,7 +243,9 @@ button.btn-secondary:hover {
   outline: 2px solid #1282A2;
 }
 
-/* Overlay customização */
+
+
+
 .fc-dia-overlay {
   animation: fadeIn 0.2s;
 }
@@ -245,7 +261,9 @@ button.btn-secondary:hover {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Overlay botões */
+
+
+/
 .fc-dia-overlay-content .btn {
   margin-right: 4px;
   margin-bottom: 2px;
@@ -260,14 +278,16 @@ button.btn-secondary:hover {
   color: #fff;
 }
 
-/* Botão voltar e rodapé igual gerenciamento.html */
+
+
+
 .voltar-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
 }
 .btn-voltar {
-  background: #034078;
+  background: #0d5c75;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -281,20 +301,18 @@ button.btn-secondary:hover {
   background: #1282A2;
   transform: scale(1.04);
 }
+
 footer {
-  background: #034078;
-  color: #fff;
+  background-color: #0d5c75;
+  color: white;
   text-align: center;
-  padding: 18px 0 12px 0;
-  font-size: 1rem;
-  margin-top: 40px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -2px 8px rgba(18,130,162,0.10);
-  letter-spacing: 0.5px;
+  padding: 1rem;
+  margin-top: auto;
 }
 
-/* Responsividade */
+
+
+
 @media (max-width: 900px) {
   main {
     padding: 12px 2vw;
