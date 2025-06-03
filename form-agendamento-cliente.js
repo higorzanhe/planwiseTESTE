@@ -27,24 +27,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Mostra apenas horários ocupados, sem nome ou serviço
     function mostrarAgendamentos() {
-        const agendamentos = getAgendamentos();
-        const calendarioDiv = document.getElementById('calendarioCliente');
-        calendarioDiv.innerHTML = '';
-        if (agendamentos.length === 0) {
-            calendarioDiv.innerHTML = '<p class="text-muted">Nenhum horário agendado.</p>';
-            return;
-        }
-        const ul = document.createElement('ul');
-        ul.className = 'list-group';
-        agendamentos.forEach(ag => {
-            const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.textContent = `${ag.data} ${ag.hora} - Horário indisponível`;
-            ul.appendChild(li);
-        });
-        calendarioDiv.appendChild(ul);
+    const agendamentos = getAgendamentos();
+    const calendarioDiv = document.getElementById('calendarioCliente');
+    calendarioDiv.innerHTML = '';
+    if (agendamentos.length === 0) {
+        calendarioDiv.innerHTML = '<p class="text-muted">Nenhum horário agendado.</p>';
+        return;
     }
-
+    const ul = document.createElement('ul');
+    ul.className = 'list-group';
+    agendamentos.forEach(ag => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item';
+        // Apenas data e hora, sem nome ou serviço!
+        li.textContent = `${ag.data} ${ag.hora} - Horário indisponível`;
+        ul.appendChild(li);
+    });
+    calendarioDiv.appendChild(ul);
+}
     document.getElementById('formCliente').addEventListener('submit', function (e) {
         e.preventDefault();
         const nome = document.getElementById('nomeCliente').value.trim();
