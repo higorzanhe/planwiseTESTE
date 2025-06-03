@@ -9,9 +9,30 @@ function exibirClientes(listaClientes = clientes) {
     const clienteDiv = document.createElement("div");
     clienteDiv.classList.add("cliente");
 
-    const header = document.createElement("button");
+    const header = document.createElement("div");
     header.classList.add("cliente-header");
-    header.textContent = cliente.nome;
+
+    const nomeSpan = document.createElement("span");
+    nomeSpan.textContent = cliente.nome;
+
+    const acoesDiv = document.createElement("div");
+    acoesDiv.classList.add("cliente-acoes");
+
+    const btnEditar = document.createElement("button");
+    btnEditar.classList.add("editar");
+    btnEditar.textContent = "Editar";
+    btnEditar.onclick = () => editarCliente(index);
+
+    const btnExcluir = document.createElement("button");
+    btnExcluir.classList.add("excluir");
+    btnExcluir.textContent = "Excluir";
+    btnExcluir.onclick = () => excluirCliente(index);
+
+    acoesDiv.appendChild(btnEditar);
+    acoesDiv.appendChild(btnExcluir);
+
+    header.appendChild(nomeSpan);
+    header.appendChild(acoesDiv);
 
     const detalhes = document.createElement("div");
     detalhes.classList.add("cliente-detalhes");
@@ -39,11 +60,6 @@ function exibirClientes(listaClientes = clientes) {
 
       <div id="tabela-servicos-${index}">
         ${gerarTabelaServicos(cliente.servicos || [], index)}
-      </div>
-
-      <div class="cliente-botoes">
-        <button class="editar" onclick="editarCliente(${index})">Editar</button>
-        <button class="excluir" onclick="excluirCliente(${index})">Excluir</button>
       </div>
     `;
 
@@ -73,7 +89,7 @@ function gerarTabelaServicos(servicos, clienteIndex) {
       <td>${servico.data}</td>
       <td>R$ ${parseFloat(servico.valor).toFixed(2)}</td>
       <td>
-        <button onclick="editarServico(${clienteIndex}, ${servicoIndex})">Editar</button>
+        <button class="editar" onclick="editarServico(${clienteIndex}, ${servicoIndex})">Editar</button>
         <button class="remover-servico" onclick="removerServico(${clienteIndex}, ${servicoIndex})">Remover</button>
       </td>
     </tr>
@@ -167,6 +183,20 @@ function cadastrarCliente(event) {
   exibirClientes();
 }
 
+function excluirCliente(index) {
+  if (confirm("Tem certeza que deseja excluir este cliente?")) {
+    clientes.splice(index, 1);
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+    exibirClientes();
+  }
+}
+
+function filtrarClientes() {
+  const termo = document.querySelector(".pesquisa").value.toLowerCase();
+  const clientesFiltrados = clientes.filter(c => c.nome.toLowerCase().includes(termo));
+  exibirClientes(clientesFiltrados);
+}
+
 function editarCliente(index) {
   const cliente = clientes[index];
 
@@ -193,20 +223,6 @@ function editarCliente(index) {
     fecharModal();
     exibirClientes();
   };
-}
-
-function excluirCliente(index) {
-  if (confirm("Tem certeza que deseja excluir este cliente?")) {
-    clientes.splice(index, 1);
-    localStorage.setItem("clientes", JSON.stringify(clientes));
-    exibirClientes();
-  }
-}
-
-function filtrarClientes() {
-  const termo = document.querySelector(".pesquisa").value.toLowerCase();
-  const clientesFiltrados = clientes.filter(c => c.nome.toLowerCase().includes(termo));
-  exibirClientes(clientesFiltrados);
 }
 
 window.onload = () => {
