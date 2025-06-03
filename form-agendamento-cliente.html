@@ -30,7 +30,6 @@
               <label for="servicoCliente" class="form-label">Serviço</label>
               <select class="form-control" id="servicoCliente" required>
                 <option value="">Selecione um serviço</option>
-                <!-- Serviços devem ser preenchidos dinamicamente via JS -->
               </select>
             </div>
             <button type="submit" class="btn btn-success w-100 mt-2">Agendar</button>
@@ -50,14 +49,13 @@
         </div>
       </div>
       <div class="voltar-container mt-4">
-        <button class="btn-voltar" onclick="window.close()">Fechar</button>
+        <button class="btn-voltar" onclick="window.location.href='index-homepage.html'">Voltar</button>
       </div>
     </div>
   </main>
   <footer>
     © 2025 PlanWise. Todos os direitos reservados.
   </footer>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
   <script src="form-agendamento-cliente.js"></script>
 </body>
 </html>

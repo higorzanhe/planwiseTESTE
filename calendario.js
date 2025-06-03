@@ -60,12 +60,25 @@ document.addEventListener('DOMContentLoaded', function () {
     function atualizarCalendario() {
         atualizarSelectServicos();
         calendar.removeAllEvents();
-        getAgendamentos().forEach(evento => calendar.addEvent(evento));
+        getAgendamentos().forEach(evento => {
+            // Adapta o formato do evento do formulário do cliente para o calendário
+            if (evento.start) {
+                calendar.addEvent(evento);
+            } else {
+                // Evento vindo do form do cliente
+                calendar.addEvent({
+                    id: evento.id || gerarId(),
+                    title: evento.nome,
+                    start: `${evento.data}T${evento.hora}`,
+                    servico: evento.servico
+                });
+            }
+        });
     }
 
     function excluirAgendamento(id, dateStr) {
         let eventosSalvos = getAgendamentos();
-        eventosSalvos = eventosSalvos.filter(ev => ev.id !== id);
+        eventosSalvos = eventosSalvos.filter(ev => (ev.id || ev.nome + ev.data + ev.hora) !== id);
         setAgendamentos(eventosSalvos);
         atualizarCalendario();
         mostrarOverlayDoDia(dateStr);
@@ -74,8 +87,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function mostrarOverlayDoDia(dateStr) {
         document.querySelectorAll('.fc-dia-overlay').forEach(el => el.remove());
         const eventosDoDia = getAgendamentos().filter(ev => {
-            if (ev.allDay) return ev.start === dateStr;
-            else return ev.start.startsWith(dateStr);
+            if (ev.start) {
+                // Evento do calendário
+                return ev.start.startsWith(dateStr);
+            } else {
+                // Evento do form do cliente
+                return ev.data === dateStr;
+            }
         });
         const overlay = document.createElement('div');
         overlay.className = 'fc-dia-overlay';
@@ -94,13 +112,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     ${
                         eventosDoDia.length > 0
                         ? eventosDoDia.map(ev => {
-                            const hora = ev.allDay ? '<span class="badge bg-info text-dark">Dia todo</span>' :
-                                `<span class="badge bg-primary">${ev.start.split('T')[1]?.slice(0,5) || ''}</span>`;
-                            return `<li class="mb-2" data-event-id="${ev.id}">
-                                ${hora} <strong>${ev.title.split(' - ')[0]}</strong> <span class="text-muted">${ev.servico || ''}</span>
-                                <button class="btn btn-sm btn-warning btn-alterar ms-2" data-id="${ev.id}" data-date="${dateStr}">Alterar</button>
-                                <button class="btn btn-sm btn-danger btn-excluir ms-2" data-id="${ev.id}" data-date="${dateStr}">Excluir</button>
-                                <button class="btn btn-sm btn-success btn-exportar ms-2" data-id="${ev.id}">Exportar</button>
+                            const hora = ev.hora || (ev.start ? ev.start.split('T')[1]?.slice(0,5) : '');
+                            const nome = ev.nome || (ev.title || '');
+                            const servico = ev.servico || (ev.descricao || '');
+                            const id = ev.id || (ev.nome + ev.data + ev.hora);
+                            return `<li class="mb-2" data-event-id="${id}">
+                                <span class="badge bg-primary">${hora}</span> <strong>${nome}</strong> <span class="text-muted">${servico}</span>
+                                <button class="btn btn-sm btn-danger btn-excluir ms-2" data-id="${id}" data-date="${dateStr}">Excluir</button>
                             </li>`;
                         }).join('')
                         : '<li>Nenhum agendamento neste dia.</li>'
@@ -129,39 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             };
         });
-
-        overlay.querySelectorAll('.btn-alterar').forEach(btn => {
-            btn.onclick = function() {
-                const id = this.getAttribute('data-id');
-                const evento = getAgendamentos().find(ev => ev.id === id);
-                if (evento) {
-                    const [nome, descricao] = evento.title.split(' - ');
-                    document.getElementById('nome').value = nome || '';
-                    document.getElementById('descricao').value = descricao || '';
-                    document.getElementById('data').value = evento.start.split('T')[0];
-                    document.getElementById('hora').value = evento.allDay ? '' : (evento.start.split('T')[1]?.slice(0,5) || '');
-                    eventoEditandoId = id;
-                    document.getElementById('nome').focus();
-                    overlay.remove();
-                }
-            };
-        });
-
-        overlay.querySelectorAll('.btn-exportar').forEach(btn => {
-            btn.onclick = function() {
-                const id = this.getAttribute('data-id');
-                const ev = getAgendamentos().find(ev => ev.id === id);
-                if (!ev) return;
-                const [nome, servico] = ev.title.split(' - ');
-                const data = ev.start.split('T')[0].replace(/-/g,'');
-                const hora = ev.allDay ? '' : ev.start.split('T')[1]?.replace(':','').slice(0,4);
-                let url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-                url += '&text=' + encodeURIComponent(ev.title);
-                url += '&dates=' + data + (hora ? 'T'+hora+'00' : '') + '/' + data + (hora ? 'T'+hora+'00' : '');
-                url += '&details=' + encodeURIComponent('Agendamento via PlanWise');
-                window.open(url, '_blank');
-            };
-        });
     }
 
     document.getElementById('formAgendamento').addEventListener('submit', function (e) {
@@ -185,33 +170,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         let eventosSalvos = getAgendamentos();
         let conflito = eventosSalvos.some(ev =>
-            ev.id !== eventoEditandoId &&
-            ev.start === (hora ? `${data}T${hora}` : data)
+            (ev.data === data && ev.hora === hora) ||
+            (ev.start && ev.start === `${data}T${hora}`)
         );
         if (conflito) {
             alert('Já existe um agendamento para este horário.');
             return;
         }
 
-        if (eventoEditandoId) {
-            eventosSalvos = eventosSalvos.filter(ev => ev.id !== eventoEditandoId);
-        }
-
-        // Título curto para o calendário!
-        const evento = hora
-            ? {
-                id: eventoEditandoId || gerarId(),
-                title: nome,
-                start: `${data}T${hora}`,
-                servico: descricao
-            }
-            : {
-                id: eventoEditandoId || gerarId(),
-                title: nome,
-                start: data,
-                allDay: true,
-                servico: descricao
-            };
+        const evento = {
+            id: gerarId(),
+            nome: nome,
+            data: data,
+            hora: hora,
+            servico: descricao
+        };
 
         eventosSalvos.push(evento);
         setAgendamentos(eventosSalvos);
@@ -220,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('mensagemSucesso').classList.remove('d-none');
         this.reset();
-        eventoEditandoId = null;
 
         setTimeout(() => {
             document.getElementById('mensagemSucesso').classList.add('d-none');
@@ -229,10 +201,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('btnGerarLink')) {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
-            const usuarioInterno = "usuario@empresa.com"; // Troque pelo valor real
-            const salt = "planwise2025";
-            const idUnico = btoa(encodeURIComponent(usuarioInterno + ':' + salt));
-            const link = `https://higorzanhe.github.io/planwiseTESTE/form-agendamento-cliente.html?usuario=${idUnico}`;
+            // Gera o link com o mesmo parâmetro de usuário
+            const usuarioInterno = usuario;
+            const link = `${window.location.origin}/form-agendamento-cliente.html?usuario=${usuarioInterno}`;
             const input = document.getElementById('linkCliente');
             input.value = link;
             input.select();
