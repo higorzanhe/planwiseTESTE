@@ -1,63 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Utilitários para localStorage
-    // --- INÍCIO: SUPORTE A USUÁRIO VIA QUERYSTRING ---
+    // Suporte a usuário via querystring
     const params = new URLSearchParams(window.location.search);
     const usuario = params.get('usuario') || 'default';
 
     function getAgendamentos() {
-        // Agora busca agendamentos específicos do usuário, se houver
         return JSON.parse(localStorage.getItem('agendamentos_' + usuario)) || [];
     }
     function setAgendamentos(arr) {
         localStorage.setItem('agendamentos_' + usuario, JSON.stringify(arr));
     }
-    // --- FIM: SUPORTE A USUÁRIO VIA QUERYSTRING ---
-
     function gerarId() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
-
-    // Carrega serviços cadastrados em produtoseserviços (localStorage)
     function getServicosCadastrados() {
-        // Apenas serviços do usuário
         return JSON.parse(localStorage.getItem('servicos')) || [];
     }
 
-    // Preencher selects de serviço a partir dos serviços cadastrados
+    // Preencher select de serviços
     const selectServico = document.getElementById('descricao');
-    const filtroServico = document.getElementById('filtroServico');
     function atualizarSelectServicos() {
         const servicos = getServicosCadastrados();
-        [selectServico, filtroServico].forEach(sel => {
-            if (!sel) return;
-            const valorAtual = sel.value;
-            sel.innerHTML = sel === filtroServico
-                ? '<option value="">Todos os serviços</option>'
-                : '<option value="">Selecione um serviço</option>';
-            servicos.forEach(servico => {
-                const option = document.createElement('option');
-                option.value = servico.nome;
-                option.textContent = servico.nome + (servico.preco ? ` - R$ ${parseFloat(servico.preco).toFixed(2)}` : '');
-                sel.appendChild(option);
-            });
-            sel.value = valorAtual;
+        const valorAtual = selectServico.value;
+        selectServico.innerHTML = '<option value="">Selecione um serviço</option>';
+        servicos.forEach(servico => {
+            const option = document.createElement('option');
+            option.value = servico.nome;
+            option.textContent = servico.nome + (servico.preco ? ` - R$ ${parseFloat(servico.preco).toFixed(2)}` : '');
+            selectServico.appendChild(option);
         });
+        selectServico.value = valorAtual;
     }
     atualizarSelectServicos();
 
-    // Variável para armazenar o ID do evento em edição
     let eventoEditandoId = null;
-
-    // Filtros
-    const filtroNome = document.getElementById('filtroNome');
-    const filtroData = document.getElementById('filtroData');
-
-    // Estado dos filtros
-    let filtrosAtuais = {
-        nome: '',
-        servico: '',
-        data: ''
-    };
 
     // Calendário
     const calendarEl = document.getElementById('calendario');
@@ -71,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: 'pt-br',
         events: [],
         eventDidMount: function(info) {
-            info.el.setAttribute('data-tooltip', info.event.title + '\n' + (info.event.extendedProps.servico || ''));
+            info.el.setAttribute('title', info.event.title);
         },
         dateClick: function(info) {
             mostrarOverlayDoDia(info.dateStr);
@@ -82,57 +57,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     calendar.render();
 
-    // Atualiza o calendário com os eventos do localStorage e filtros atuais
     function atualizarCalendario() {
         atualizarSelectServicos();
         calendar.removeAllEvents();
-        filtrarAgendamentos(getAgendamentos()).forEach(evento => calendar.addEvent(evento));
+        getAgendamentos().forEach(evento => calendar.addEvent(evento));
     }
 
-    // Filtro de eventos
-    function filtrarAgendamentos(arr) {
-        let nome = filtrosAtuais.nome ? filtrosAtuais.nome.toLowerCase() : '';
-        let servico = filtrosAtuais.servico || '';
-        let data = filtrosAtuais.data || '';
-        return arr.filter(ev => {
-            let [nomeEv] = ev.title.split(' - ');
-            let servicoEv = ev.servico || (ev.title.split(' - ')[1] || '');
-            let dataEv = ev.start.split('T')[0];
-            return (!nome || nomeEv.toLowerCase().includes(nome))
-                && (!servico || servicoEv === servico)
-                && (!data || dataEv === data);
-        });
-    }
-
-    // Botões de filtro
-    if (document.getElementById('btnAplicarFiltros')) {
-        document.getElementById('btnAplicarFiltros').onclick = function() {
-            filtrosAtuais.nome = filtroNome.value;
-            filtrosAtuais.servico = filtroServico.value;
-            filtrosAtuais.data = filtroData.value;
-            atualizarCalendario();
-        };
-    }
-    if (document.getElementById('btnLimparFiltros')) {
-        document.getElementById('btnLimparFiltros').onclick = function() {
-            filtroNome.value = '';
-            filtroServico.value = '';
-            filtroData.value = '';
-            filtrosAtuais = { nome: '', servico: '', data: '' };
-            atualizarCalendario();
-        };
-    }
-
-    // Exclui um agendamento pelo id
     function excluirAgendamento(id, dateStr) {
         let eventosSalvos = getAgendamentos();
         eventosSalvos = eventosSalvos.filter(ev => ev.id !== id);
         setAgendamentos(eventosSalvos);
         atualizarCalendario();
-        mostrarOverlayDoDia(dateStr); // Reabre overlay atualizado
+        mostrarOverlayDoDia(dateStr);
     }
 
-    // Overlay do dia
     function mostrarOverlayDoDia(dateStr) {
         document.querySelectorAll('.fc-dia-overlay').forEach(el => el.remove());
         const eventosDoDia = getAgendamentos().filter(ev => {
@@ -159,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             const hora = ev.allDay ? '<span class="badge bg-info text-dark">Dia todo</span>' :
                                 `<span class="badge bg-primary">${ev.start.split('T')[1]?.slice(0,5) || ''}</span>`;
                             return `<li class="mb-2" data-event-id="${ev.id}">
-                                ${hora} ${ev.title}
+                                ${hora} <strong>${ev.title.split(' - ')[0]}</strong> <span class="text-muted">${ev.servico || ''}</span>
                                 <button class="btn btn-sm btn-warning btn-alterar ms-2" data-id="${ev.id}" data-date="${dateStr}">Alterar</button>
                                 <button class="btn btn-sm btn-danger btn-excluir ms-2" data-id="${ev.id}" data-date="${dateStr}">Excluir</button>
                                 <button class="btn btn-sm btn-success btn-exportar ms-2" data-id="${ev.id}">Exportar</button>
@@ -173,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(overlay);
         overlay.querySelector('.fc-dia-overlay-content').focus();
 
-        // Fechar overlay
         overlay.querySelector('.fc-dia-fechar').onclick = () => overlay.remove();
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) overlay.remove();
@@ -182,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'Escape' || e.keyCode === 27) overlay.remove();
         });
 
-        // Handler de exclusão
         overlay.querySelectorAll('.btn-excluir').forEach(btn => {
             btn.onclick = function() {
                 const id = this.getAttribute('data-id');
@@ -194,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
 
-        // Handler de alteração
         overlay.querySelectorAll('.btn-alterar').forEach(btn => {
             btn.onclick = function() {
                 const id = this.getAttribute('data-id');
@@ -212,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
 
-        // Handler de exportação para Google Calendar
         overlay.querySelectorAll('.btn-exportar').forEach(btn => {
             btn.onclick = function() {
                 const id = this.getAttribute('data-id');
@@ -230,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Submissão do formulário de agendamento (adicionar ou alterar)
     document.getElementById('formAgendamento').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -239,12 +172,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const hora = document.getElementById('hora').value;
         const descricao = document.getElementById('descricao').value;
 
-        // Validação: campos obrigatórios
         if (!nome || !data || !descricao) {
             alert('Preencha todos os campos obrigatórios.');
             return;
         }
-        // Validação: data passada
         const hoje = new Date();
         const dataSelecionada = new Date(data + (hora ? 'T' + hora : 'T00:00'));
         hoje.setHours(0,0,0,0);
@@ -252,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Não é possível agendar para datas passadas.');
             return;
         }
-        // Validação: horário já ocupado
         let eventosSalvos = getAgendamentos();
         let conflito = eventosSalvos.some(ev =>
             ev.id !== eventoEditandoId &&
@@ -263,22 +193,21 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Se estiver editando, remove o antigo
         if (eventoEditandoId) {
             eventosSalvos = eventosSalvos.filter(ev => ev.id !== eventoEditandoId);
         }
 
-        // Cria evento com id único (ou mantém o mesmo id se for edição)
+        // Título curto para o calendário!
         const evento = hora
             ? {
                 id: eventoEditandoId || gerarId(),
-                title: `${nome} - ${descricao}`,
+                title: nome,
                 start: `${data}T${hora}`,
                 servico: descricao
             }
             : {
                 id: eventoEditandoId || gerarId(),
-                title: `${nome} - ${descricao}`,
+                title: nome,
                 start: data,
                 allDay: true,
                 servico: descricao
@@ -298,29 +227,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     });
 
-    // Botão global de exportação Google Calendar
-    if (document.getElementById('btnExportarGoogle')) {
-        document.getElementById('btnExportarGoogle').onclick = function() {
-            const eventos = getAgendamentos();
-            if (!eventos.length) return alert('Nenhum agendamento para exportar.');
-            const ev = eventos[eventos.length-1];
-            const [nome, servico] = ev.title.split(' - ');
-            const data = ev.start.split('T')[0].replace(/-/g,'');
-            const hora = ev.allDay ? '' : ev.start.split('T')[1]?.replace(':','').slice(0,4);
-            let url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-            url += '&text=' + encodeURIComponent(ev.title);
-            url += '&dates=' + data + (hora ? 'T'+hora+'00' : '') + '/' + data + (hora ? 'T'+hora+'00' : '');
-            url += '&details=' + encodeURIComponent('Agendamento via PlanWise');
-            window.open(url, '_blank');
-        };
-    }
-
-    // Geração de link único, complexo e fixo para o usuário interno
     if (document.getElementById('btnGerarLink')) {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
-            // Exemplo: identificador complexo e fixo para o usuário interno
-            // Troque pelo campo real do usuário interno do seu sistema
-            const usuarioInterno = "usuario@empresa.com"; // Exemplo fixo, troque pelo valor real
+            const usuarioInterno = "usuario@empresa.com"; // Troque pelo valor real
             const salt = "planwise2025";
             const idUnico = btoa(encodeURIComponent(usuarioInterno + ':' + salt));
             const link = `https://higorzanhe.github.io/planwiseTESTE/form-agendamento-cliente.html?usuario=${idUnico}`;
@@ -333,13 +242,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Inicializa o calendário na tela
     atualizarCalendario();
 });
-// ...ao criar evento...
-const evento = {
-    id: eventoEditandoId || gerarId(),
-    title: nome, // ou servico, ou `${nome} (${servico})` se for curto
-    start: `${data}T${hora}`,
-    servico: descricao // detalhes completos ficam no overlay/modal
-};

@@ -14,73 +14,46 @@
   </header>
 
   <main>
-
-   
-      <form id="formFiltros" class="row g-2 align-items-center mb-3" autocomplete="off" onsubmit="return false;">
-        <div class="col-auto">
-          <input type="text" id="filtroNome" class="form-control" style="max-width:220px" placeholder="Filtrar por nome">
-        </div>
-        <div class="col-auto">
-          <select id="filtroServico" class="form-control">
-            <option value="">Todos os serviços</option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <input type="date" id="filtroData" class="form-control">
-        </div>
-        <div class="col-auto">
-          <button type="button" id="btnAplicarFiltros" class="btn btn-primary btn-sm">Aplicar filtro</button>
-        </div>
-        <div class="col-auto">
-          <button type="button" id="btnLimparFiltros" class="btn btn-outline-secondary btn-sm">Limpar</button>
-        </div>
-        <div class="col-auto">
-          <button type="button" id="btnExportarGoogle" class="btn btn-outline-primary btn-sm">Google Agenda</button>
-        </div>
-      </form>
-
-      
-      <div class="text-center my-4">
-        <div class="input-group justify-content-center" style="max-width:500px;margin:auto;">
-          <input type="text" id="linkCliente" class="form-control" readonly>
-          <button class="btn btn-success" type="button" id="btnGerarLink">Gerar link de agendamento do cliente</button>
-        </div>
-        <small class="text-muted d-block mt-2">Clique para gerar e copiar o link único para o cliente realizar o agendamento.</small>
+    <div class="text-center my-4">
+      <div class="input-group justify-content-center" style="max-width:500px;margin:auto;">
+        <input type="text" id="linkCliente" class="form-control" readonly>
+        <button class="btn btn-success" type="button" id="btnGerarLink">Gerar link de agendamento do cliente</button>
       </div>
+      <small class="text-muted d-block mt-2">Clique para gerar e copiar o link único para o cliente realizar o agendamento.</small>
+    </div>
 
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <form id="formAgendamento" autocomplete="off" aria-label="Formulário de Agendamento">
-            <div class="mb-3">
-              <label for="nome" class="form-label">Nome do Cliente</label>
-              <input type="text" class="form-control" id="nome" placeholder="Digite o nome do cliente" required>
-            </div>
-            <div class="mb-3">
-              <label for="data" class="form-label">Data</label>
-              <input type="date" class="form-control" id="data" required>
-            </div>
-            <div class="mb-3">
-              <label for="hora" class="form-label">Hora <span class="text-muted">(opcional para agendamento do dia todo)</span></label>
-              <input type="time" class="form-control" id="hora">
-            </div>
-            <div class="mb-3">
-              <label for="descricao" class="form-label">Selecionar um Serviço</label>
-              <select class="form-control" id="descricao" required>
-                <option value="">Selecione um serviço</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Agendar</button>
-          </form>
-          <div class="alert alert-success d-none mt-3" id="mensagemSucesso" role="alert">Agendamento adicionado ao calendário!</div>
-        </div>
-        <div class="col-md-8">
-          <div id="calendario" aria-label="Calendário de Agendamentos"></div>
-        </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <form id="formAgendamento" autocomplete="off" aria-label="Formulário de Agendamento">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Cliente</label>
+            <input type="text" class="form-control" id="nome" placeholder="Digite o nome do cliente" required>
+          </div>
+          <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" class="form-control" id="data" required>
+          </div>
+          <div class="mb-3">
+            <label for="hora" class="form-label">Hora <span class="text-muted">(opcional para agendamento do dia todo)</span></label>
+            <input type="time" class="form-control" id="hora">
+          </div>
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Selecionar um Serviço</label>
+            <select class="form-control" id="descricao" required>
+              <option value="">Selecione um serviço</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Agendar</button>
+        </form>
+        <div class="alert alert-success d-none mt-3" id="mensagemSucesso" role="alert">Agendamento adicionado ao calendário!</div>
       </div>
+      <div class="col-md-8">
+        <div id="calendario" aria-label="Calendário de Agendamentos"></div>
+      </div>
+    </div>
 
-      <div class="voltar-container">
-        <button class="btn-voltar" onclick="window.location.href='index-homepage.html'">Voltar</button>
-      </div>
+    <div class="voltar-container">
+      <button class="btn-voltar" onclick="window.location.href='index-homepage.html'">Voltar</button>
     </div>
   </main>
   
