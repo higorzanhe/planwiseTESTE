@@ -34,7 +34,7 @@ main {
 
 
 
-/
+
 #formFiltros {
   background: #e6eaf0;
   border-radius: 12px;
@@ -263,7 +263,7 @@ button.btn-secondary:hover {
 
 
 
-/
+
 .fc-dia-overlay-content .btn {
   margin-right: 4px;
   margin-bottom: 2px;
@@ -351,5 +351,73 @@ footer {
   #formFiltros button {
     width: 100% !important;
     margin-bottom: 6px;
+  }
+}
+
+/* Limita o tamanho dos eventos no calendário */
+.fc-event-title,
+.fc-event-time {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
+  display: block;
+}
+
+.fc .fc-event {
+  font-size: 0.95em;
+  min-height: 22px;
+  max-height: 28px;
+  overflow: hidden;
+  padding: 2px 4px;
+  background: #1282A2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.fc .fc-daygrid-event-dot {
+  margin-right: 2px;
+}
+
+.fc .fc-daygrid-event {
+  margin-bottom: 2px;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.3rem;
+  color: #1282A2;
+}
+
+.fc-dia-overlay {
+  z-index: 9999;
+}
+
+.fc-dia-overlay-content {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+.btn-voltar {
+  background: #1282A2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 24px;
+  font-weight: bold;
+  margin-top: 24px;
+  transition: background 0.2s;
+}
+.btn-voltar:hover {
+  background: #0a5c73;
+}
+
+@media (max-width: 600px) {
+  .fc-event-title, .fc-event-time {
+    max-width: 60px;
+    font-size: 0.85em;
+  }
+  .fc-dia-overlay-content {
+    min-width: 90vw;
+    padding: 12px 4px;
   }
 }

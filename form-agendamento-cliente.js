@@ -3,20 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const params = new URLSearchParams(window.location.search);
     const usuario = params.get('usuario') || 'default';
 
-    // Serviços fixos (pode ser dinâmico)
-    const servicos = [
-        { nome: "Consulta", preco: 100 },
-        { nome: "Corte de Cabelo", preco: 50 },
-        { nome: "Manicure", preco: 40 },
-        { nome: "Massagem", preco: 120 }
-    ];
+    // Carrega serviços cadastrados pelo usuário no localStorage
+    function getServicosUsuario() {
+        return JSON.parse(localStorage.getItem('servicos')) || [];
+    }
 
-    // Preenche o select de serviços
+    // Preenche o select de serviços com os cadastrados pelo usuário
     const selectServico = document.getElementById('servicoCliente');
-    servicos.forEach(servico => {
+    selectServico.innerHTML = '<option value="">Selecione um serviço</option>';
+    getServicosUsuario().forEach(servico => {
         const opt = document.createElement('option');
         opt.value = servico.nome;
-        opt.textContent = `${servico.nome} - R$ ${servico.preco.toFixed(2)}`;
+        opt.textContent = servico.nome + (servico.preco ? ` - R$ ${parseFloat(servico.preco).toFixed(2)}` : '');
         selectServico.appendChild(opt);
     });
 

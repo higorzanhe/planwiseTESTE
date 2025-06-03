@@ -1,17 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Utilitários para localStorage
+    // --- INÍCIO: SUPORTE A USUÁRIO VIA QUERYSTRING ---
+    const params = new URLSearchParams(window.location.search);
+    const usuario = params.get('usuario') || 'default';
+
     function getAgendamentos() {
-        return JSON.parse(localStorage.getItem('agendamentos')) || [];
+        // Agora busca agendamentos específicos do usuário, se houver
+        return JSON.parse(localStorage.getItem('agendamentos_' + usuario)) || [];
     }
     function setAgendamentos(arr) {
-        localStorage.setItem('agendamentos', JSON.stringify(arr));
+        localStorage.setItem('agendamentos_' + usuario, JSON.stringify(arr));
     }
+    // --- FIM: SUPORTE A USUÁRIO VIA QUERYSTRING ---
+
     function gerarId() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
 
     // Carrega serviços cadastrados em produtoseserviços (localStorage)
     function getServicosCadastrados() {
+        // Apenas serviços do usuário
         return JSON.parse(localStorage.getItem('servicos')) || [];
     }
 
@@ -328,3 +336,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializa o calendário na tela
     atualizarCalendario();
 });
+// ...ao criar evento...
+const evento = {
+    id: eventoEditandoId || gerarId(),
+    title: nome, // ou servico, ou `${nome} (${servico})` se for curto
+    start: `${data}T${hora}`,
+    servico: descricao // detalhes completos ficam no overlay/modal
+};
