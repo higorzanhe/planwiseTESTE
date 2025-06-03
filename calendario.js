@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Suporte a usuário via querystring
-    const params = new URLSearchParams(window.location.search);
-    const usuario = params.get('usuario') || 'default';
+    // Gera ou recupera um identificador único para o usuário
+    let usuario = localStorage.getItem('usuario_id');
+    if (!usuario) {
+        usuario = '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('usuario_id', usuario);
+    }
 
     function getAgendamentos() {
         return JSON.parse(localStorage.getItem('agendamentos_' + usuario)) || [];
@@ -201,9 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('btnGerarLink')) {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
-            // Gera o link com o mesmo parâmetro de usuário
-            const usuarioInterno = usuario;
-            const link = `${window.location.origin}/planwiseTESTE/form-agendamento-cliente.html?usuario=${encodeURIComponent(usuarioInterno)}`;
+            // Gera o link único para o usuário atual
+            const link = `${window.location.origin}/planwiseTESTE/form-agendamento-cliente.html?usuario=${encodeURIComponent(usuario)}`;
             const input = document.getElementById('linkCliente');
             input.value = link;
             input.select();
