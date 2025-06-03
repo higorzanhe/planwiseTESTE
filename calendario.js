@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
             // Gera o link com o mesmo parâmetro de usuário
             const usuarioInterno = usuario;
-            const link = `${window.location.origin}/form-agendamento-cliente.html?usuario=${usuarioInterno}`;
+            const link = `${window.location.origin}/planwiseTESTE/form-agendamento-cliente.html?usuario=${encodeURIComponent(usuarioInterno)}`;
             const input = document.getElementById('linkCliente');
             input.value = link;
             input.select();
