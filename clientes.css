@@ -84,21 +84,13 @@ main {
 }
 
 .cliente-header {
-  width: 100%;
-  background-color: #e9f3f7;
-  border: none;
-  padding: 14px 20px;
-  font-size: 18px;
-  text-align: left;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #eaf4f8;
   font-weight: bold;
-  color: #0A1128;
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.2s ease;
-}
-
-.cliente-header:hover {
-  background-color: #d3eaf2;
+  font-size: 1.1rem;
 }
 
 .cliente-detalhes {
@@ -140,24 +132,29 @@ main {
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.editar {
-  background-color: #f0ad4e;
+/* Botão editar amarelo ouro */
+.cliente-botoes .editar,
+.btn-editar {
+  background-color: #FFD700;
+  color: black;
+}
+
+.cliente-botoes .editar:hover,
+.btn-editar:hover {
+  background-color: #FFC300;
+  color: black;
+}
+
+/* Botão excluir vermelho vibrante */
+.cliente-botoes .excluir,
+.btn-excluir {
+  background-color: #FF4136;
   color: white;
 }
 
-.editar:hover {
-  background-color: #e0993c;
-  transform: scale(1.02);
-}
-
-.excluir {
-  background-color: #d9534f;
-  color: white;
-}
-
-.excluir:hover {
-  background-color: #c9302c;
-  transform: scale(1.02);
+.cliente-botoes .excluir:hover,
+.btn-excluir:hover {
+  background-color: #E03025;
 }
 
 .voltar-container {
@@ -347,58 +344,41 @@ footer {
   font-size: 16px;
   width: 100%;
   margin-bottom: 20px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .adicionar-servico button:hover {
   background-color: #1282a2;
-  transform: scale(1.02);
 }
 
 /* Tabela de Serviços */
 .tabela-servicos {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
+  margin-top: 10px;
 }
 
 .tabela-servicos th,
 .tabela-servicos td {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.tabela-servicos th {
-  background-color: #0d5c75;
-  color: white;
+  border: 1px solid #ccc;
   text-align: left;
 }
 
-.tabela-servicos tr:nth-child(even) {
-  background-color: #f9f9f9;
+.tabela-servicos th {
+  background-color: #eaf4f8;
 }
 
-.tabela-servicos .remover-servico {
-  background-color: #dc3545;
+.remover-servico {
+  background-color: #FF4136;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
-.tabela-servicos .remover-servico:hover {
-  background-color: #c82333;
-}
-
-/* Formulário de Adicionar Serviço com Toggle */
-.formulario-servico {
-  display: none;
-  margin-top: 20px;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.formulario-servico.ativo {
-  display: block;
+.remover-servico:hover {
+  background-color: #E03025;
 }
