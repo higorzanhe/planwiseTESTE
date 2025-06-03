@@ -64,11 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
         atualizarSelectServicos();
         calendar.removeAllEvents();
         getAgendamentos().forEach(evento => {
-            // Adapta o formato do evento do formulário do cliente para o calendário
             if (evento.start) {
                 calendar.addEvent(evento);
             } else {
-                // Evento vindo do form do cliente
                 calendar.addEvent({
                     id: evento.id || gerarId(),
                     title: evento.nome,
@@ -91,10 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.fc-dia-overlay').forEach(el => el.remove());
         const eventosDoDia = getAgendamentos().filter(ev => {
             if (ev.start) {
-                // Evento do calendário
                 return ev.start.startsWith(dateStr);
             } else {
-                // Evento do form do cliente
                 return ev.data === dateStr;
             }
         });
