@@ -70,43 +70,50 @@
             </div>
         </section>
 
-        <section class="mt-5">
-            <h2>Cadastrar Serviço</h2>
-            <form id="formServico" class="form-inline mb-3">
-                <div class="form-group mb-2">
-                    <label for="nomeServico" class="me-2">Nome</label>
-                    <input type="text" id="nomeServico" class="form-control" required>
-                </div>
-                <div class="form-group mb-2 ms-3">
-                    <label for="precoServico" class="me-2">Preço</label>
-                    <input type="number" step="0.01" id="precoServico" class="form-control" required>
-                </div>
-                <div class="form-group mb-2 ms-3">
-                    <label for="descricaoServico" class="me-2">Descrição</label>
-                    <input type="text" id="descricaoServico" class="form-control" required>
-                </div>
-                <button type="submit" id="btnServico" class="btn btn-primary ms-3">Cadastrar Serviço</button>
-            </form>
-            <button type="button" class="toggle-lista btn btn-outline-secondary mb-2" id="toggle-servicos">Mostrar/Esconder Serviços ▼</button>
-            <div id="servicos-container">
-                <h2>Serviços</h2>
-                <table id="tabela-servicos" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th>Descrição</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="servicos-lista">
-                        <tr>
-                            <td colspan="4" id="servicos-vazio">Nenhum serviço cadastrado.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        ...
+<section class="mt-5">
+    <h2>Cadastrar Serviço</h2>
+    <form id="formServico" class="form-inline mb-3">
+        <div class="form-group mb-2">
+            <label for="nomeServico" class="me-2">Nome</label>
+            <input type="text" id="nomeServico" class="form-control" required>
+        </div>
+        <div class="form-group mb-2 ms-3">
+            <label for="precoServico" class="me-2">Preço</label>
+            <input type="number" step="0.01" id="precoServico" class="form-control" required>
+        </div>
+        <div class="form-group mb-2 ms-3">
+            <label for="descricaoServico" class="me-2">Descrição</label>
+            <input type="text" id="descricaoServico" class="form-control" required>
+        </div>
+        <div class="form-group mb-2 ms-3">
+            <label for="duracaoServico" class="me-2">Duração (min)</label>
+            <input type="number" id="duracaoServico" class="form-control" min="1" required>
+        </div>
+        <button type="submit" id="btnServico" class="btn btn-primary ms-3">Cadastrar Serviço</button>
+    </form>
+    <button type="button" class="toggle-lista btn btn-outline-secondary mb-2" id="toggle-servicos">Mostrar/Esconder Serviços ▼</button>
+    <div id="servicos-container">
+        <h2>Serviços</h2>
+        <table id="tabela-servicos" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Descrição</th>
+                    <th>Duração (min)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="servicos-lista">
+                <tr>
+                    <td colspan="5" id="servicos-vazio">Nenhum serviço cadastrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+...
         <div class="voltar-container">
     <button class="btn-voltar" onclick="window.location.href='gerenciamento.html'">Voltar</button>
 </div>

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Pega o identificador do usuário da URL
     const params = new URLSearchParams(window.location.search);
     const usuario = params.get('usuario') || 'default';
 
@@ -9,21 +8,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function setAgendamentos(arr) {
         localStorage.setItem('agendamentos_' + usuario, JSON.stringify(arr));
     }
+    function getServicos() {
+        return JSON.parse(localStorage.getItem('servicos')) || [];
+    }
 
-    // Preencher serviços cadastrados
     function preencherServicos() {
-        const servicos = JSON.parse(localStorage.getItem('servicos')) || [];
+        const servicos = getServicos();
         const select = document.getElementById('servicoCliente');
         select.innerHTML = '<option value="">Selecione um serviço</option>';
         servicos.forEach(servico => {
             const option = document.createElement('option');
             option.value = servico.nome;
             option.textContent = servico.nome;
+            option.setAttribute('data-duracao', servico.duracao || 30);
             select.appendChild(option);
         });
     }
 
-    // Mostrar agendamentos já feitos
     function mostrarAgendamentos() {
         const agendamentos = getAgendamentos();
         const calendarioDiv = document.getElementById('calendarioCliente');
@@ -51,14 +52,29 @@ document.addEventListener('DOMContentLoaded', function () {
         const servico = document.getElementById('servicoCliente').value;
 
         if (!nome || !data || !hora || !servico) {
+            document.getElementById('mensagemErroCliente').textContent = 'Preencha todos os campos obrigatórios.';
             document.getElementById('mensagemErroCliente').classList.remove('d-none');
             document.getElementById('mensagemSucessoCliente').classList.add('d-none');
             return;
         }
 
-        // Verifica conflito de horário
+        const servicos = getServicos();
+        const servicoSelecionado = servicos.find(s => s.nome === servico);
+        const duracao = servicoSelecionado ? parseInt(servicoSelecionado.duracao) : 30;
+
+        const inicioNovo = new Date(`${data}T${hora}`);
+        const fimNovo = new Date(inicioNovo.getTime() + duracao * 60000);
+
         const agendamentos = getAgendamentos();
-        const existe = agendamentos.some(ev => ev.data === data && ev.hora === hora);
+        const existe = agendamentos.some(ev => {
+            if (ev.data !== data) return false;
+            const servicoEv = servicos.find(s => s.nome === ev.servico);
+            const duracaoEv = servicoEv ? parseInt(servicoEv.duracao) : 30;
+            const inicioEv = new Date(`${ev.data}T${ev.hora}`);
+            const fimEv = new Date(inicioEv.getTime() + duracaoEv * 60000);
+            return (inicioNovo < fimEv && fimNovo > inicioEv);
+        });
+
         if (existe) {
             document.getElementById('mensagemErroCliente').textContent = 'Já existe um agendamento para este horário.';
             document.getElementById('mensagemErroCliente').classList.remove('d-none');

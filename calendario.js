@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Gera ou recupera um identificador único para o usuário
+    // Identificador único do usuário
     let usuario = localStorage.getItem('usuario_id');
     if (!usuario) {
         usuario = '_' + Math.random().toString(36).substr(2, 9);
@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
         servicos.forEach(servico => {
             const option = document.createElement('option');
             option.value = servico.nome;
-            option.textContent = servico.nome + (servico.preco ? ` - R$ ${parseFloat(servico.preco).toFixed(2)}` : '');
+            option.textContent = servico.nome + (servico.duracao ? ` (${servico.duracao} min)` : '');
+            option.setAttribute('data-duracao', servico.duracao || 30);
             selectServico.appendChild(option);
         });
         selectServico.value = valorAtual;
@@ -168,10 +169,23 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         let eventosSalvos = getAgendamentos();
-        let conflito = eventosSalvos.some(ev =>
-            (ev.data === data && ev.hora === hora) ||
-            (ev.start && ev.start === `${data}T${hora}`)
-        );
+
+        // --- CONFLITO CONSIDERANDO DURAÇÃO ---
+        const servicos = getServicosCadastrados();
+        const servicoSelecionado = servicos.find(s => s.nome === descricao);
+        const duracao = servicoSelecionado ? parseInt(servicoSelecionado.duracao) : 30;
+        const inicioNovo = new Date(`${data}T${hora}`);
+        const fimNovo = new Date(inicioNovo.getTime() + duracao * 60000);
+
+        let conflito = eventosSalvos.some(ev => {
+            if (ev.data !== data) return false;
+            const servicoEv = servicos.find(s => s.nome === ev.servico);
+            const duracaoEv = servicoEv ? parseInt(servicoEv.duracao) : 30;
+            const inicioEv = new Date(`${ev.data}T${ev.hora}`);
+            const fimEv = new Date(inicioEv.getTime() + duracaoEv * 60000);
+            return (inicioNovo < fimEv && fimNovo > inicioEv);
+        });
+
         if (conflito) {
             alert('Já existe um agendamento para este horário.');
             return;
@@ -200,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('btnGerarLink')) {
         document.getElementById('btnGerarLink').addEventListener('click', function () {
-            // Gera o link único para o usuário atual
             const link = `${window.location.origin}/planwiseTESTE/form-agendamento-cliente.html?usuario=${encodeURIComponent(usuario)}`;
             const input = document.getElementById('linkCliente');
             input.value = link;

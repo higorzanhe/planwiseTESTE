@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Produtos
+    // --- PRODUTOS ---
     const produtosKey = 'produtos';
     const produtosLista = document.getElementById('produtos-lista');
     let produtos = JSON.parse(localStorage.getItem(produtosKey)) || [];
@@ -83,81 +83,100 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderProdutos();
 
-    // Serviços
-    const servicosKey = 'servicos';
-    const servicosLista = document.getElementById('servicos-lista');
-    let servicos = JSON.parse(localStorage.getItem(servicosKey)) || [];
-    let editandoServico = null;
-
-    function renderServicos() {
-        servicosLista.innerHTML = '';
+    // --- SERVIÇOS ---
+    function getServicos() {
+        return JSON.parse(localStorage.getItem('servicos')) || [];
+    }
+    function setServicos(servicos) {
+        localStorage.setItem('servicos', JSON.stringify(servicos));
+    }
+    function atualizarListaServicos() {
+        const lista = document.getElementById('servicos-lista');
+        lista.innerHTML = '';
+        const servicos = getServicos();
         if (servicos.length === 0) {
-            servicosLista.innerHTML = `<tr><td colspan="4" id="servicos-vazio">Nenhum serviço cadastrado.</td></tr>`;
+            lista.innerHTML = `<tr><td colspan="5" id="servicos-vazio">Nenhum serviço cadastrado.</td></tr>`;
             return;
         }
         servicos.forEach((servico, idx) => {
-            servicosLista.innerHTML += `
-                <tr>
-                    <td>${servico.nome}</td>
-                    <td>R$ ${parseFloat(servico.preco).toFixed(2)}</td>
-                    <td>${servico.descricao}</td>
-                    <td>
-                        <button class="btn btn-sm btn-warning btn-alterar-servico" data-idx="${idx}">Alterar</button>
-                        <button class="btn btn-sm btn-danger btn-excluir-servico ms-1" data-idx="${idx}">Excluir</button>
-                    </td>
-                </tr>
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${servico.nome}</td>
+                <td>R$ ${parseFloat(servico.preco).toFixed(2)}</td>
+                <td>${servico.descricao}</td>
+                <td>${servico.duracao || 30}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning btn-editar-servico" data-idx="${idx}">Editar</button>
+                    <button class="btn btn-sm btn-danger btn-excluir-servico" data-idx="${idx}">Excluir</button>
+                </td>
             `;
-        });
-
-        // Excluir serviço
-        servicosLista.querySelectorAll('.btn-excluir-servico').forEach(btn => {
-            btn.onclick = function () {
-                const idx = parseInt(this.getAttribute('data-idx'));
-                if (confirm('Deseja excluir este serviço?')) {
-                    servicos.splice(idx, 1);
-                    localStorage.setItem(servicosKey, JSON.stringify(servicos));
-                    renderServicos();
-                }
-            };
-        });
-
-        // Alterar serviço
-        servicosLista.querySelectorAll('.btn-alterar-servico').forEach(btn => {
-            btn.onclick = function () {
-                const idx = parseInt(this.getAttribute('data-idx'));
-                const servico = servicos[idx];
-                document.getElementById('nomeServico').value = servico.nome;
-                document.getElementById('precoServico').value = servico.preco;
-                document.getElementById('descricaoServico').value = servico.descricao;
-                editandoServico = idx;
-                document.getElementById('btnServico').textContent = 'Salvar Alteração';
-            };
+            lista.appendChild(tr);
         });
     }
 
     document.getElementById('formServico').addEventListener('submit', function (e) {
         e.preventDefault();
         const nome = document.getElementById('nomeServico').value.trim();
-        const preco = document.getElementById('precoServico').value;
+        const preco = parseFloat(document.getElementById('precoServico').value);
         const descricao = document.getElementById('descricaoServico').value.trim();
-        if (!nome || !preco || !descricao) return;
+        const duracao = parseInt(document.getElementById('duracaoServico').value);
 
-        if (editandoServico !== null) {
-            servicos[editandoServico] = { nome, preco, descricao };
-            editandoServico = null;
-            document.getElementById('btnServico').textContent = 'Cadastrar Serviço';
-        } else {
-            servicos.push({ nome, preco, descricao });
+        if (!nome || isNaN(preco) || !descricao || isNaN(duracao) || duracao < 1) {
+            alert('Preencha todos os campos corretamente.');
+            return;
         }
-        localStorage.setItem(servicosKey, JSON.stringify(servicos));
+
+        const servicos = getServicos();
+        // Não permitir nomes duplicados
+        if (servicos.some(s => s.nome === nome)) {
+            alert('Já existe um serviço com esse nome.');
+            return;
+        }
+
+        servicos.push({ nome, preco, descricao, duracao });
+        setServicos(servicos);
         this.reset();
-        renderServicos();
+        atualizarListaServicos();
     });
 
-    document.getElementById('toggle-servicos').onclick = function () {
-        const container = document.getElementById('servicos-container');
-        container.style.display = container.style.display === 'none' ? '' : 'none';
-    };
+    // Editar serviço
+    document.getElementById('servicos-lista').addEventListener('click', function (e) {
+        if (e.target.classList.contains('btn-editar-servico')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            const servicos = getServicos();
+            const servico = servicos[idx];
+            document.getElementById('nomeServico').value = servico.nome;
+            document.getElementById('precoServico').value = servico.preco;
+            document.getElementById('descricaoServico').value = servico.descricao;
+            document.getElementById('duracaoServico').value = servico.duracao || 30;
+            // Remove o antigo ao salvar novamente
+            servicos.splice(idx, 1);
+            setServicos(servicos);
+            atualizarListaServicos();
+        }
+        // Excluir serviço
+        if (e.target.classList.contains('btn-excluir-servico')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            if (confirm('Deseja excluir este serviço?')) {
+                const servicos = getServicos();
+                servicos.splice(idx, 1);
+                setServicos(servicos);
+                atualizarListaServicos();
+            }
+        }
+    });
 
-    renderServicos();
+    // Mostrar/esconder lista de serviços
+    document.getElementById('toggle-servicos').addEventListener('click', function () {
+        const container = document.getElementById('servicos-container');
+        if (container.style.display === 'none') {
+            container.style.display = '';
+            this.textContent = 'Mostrar/Esconder Serviços ▼';
+        } else {
+            container.style.display = 'none';
+            this.textContent = 'Mostrar/Esconder Serviços ▲';
+        }
+    });
+
+    atualizarListaServicos();
 });
