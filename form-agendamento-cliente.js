@@ -94,3 +94,18 @@ document.addEventListener('DOMContentLoaded', function () {
     preencherServicos();
     mostrarAgendamentos();
 });
+// Bloqueia tentativas de navegação para páginas administrativas
+document.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A' || e.target.closest('a')) {
+        const link = e.target.href || (e.target.closest('a') && e.target.closest('a').href);
+        if (link && (
+            link.includes('gerenciamento.html') ||
+            link.includes('produtoseserviços.html') ||
+            link.includes('calendario.html') ||
+            link.includes('admin') // ajuste conforme suas páginas restritas
+        )) {
+            e.preventDefault();
+            alert('Acesso restrito. Você não pode acessar esta página.');
+        }
+    }
+});
