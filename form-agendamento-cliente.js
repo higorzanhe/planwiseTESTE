@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Mostra apenas horários ocupados, sem nome ou serviço
     function mostrarAgendamentos() {
         const agendamentos = getAgendamentos();
         const calendarioDiv = document.getElementById('calendarioCliente');
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         agendamentos.forEach(ag => {
             const li = document.createElement('li');
             li.className = 'list-group-item';
-            li.textContent = `${ag.data} ${ag.hora} - ${ag.nome} (${ag.servico})`;
+            li.textContent = `${ag.data} ${ag.hora} - Horário indisponível`;
             ul.appendChild(li);
         });
         calendarioDiv.appendChild(ul);
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     preencherServicos();
     mostrarAgendamentos();
 });
+
 // Bloqueia tentativas de navegação para páginas administrativas
 document.addEventListener('click', function (e) {
     if (e.target.tagName === 'A' || e.target.closest('a')) {
