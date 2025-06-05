@@ -87,9 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function getServicos() {
         return JSON.parse(localStorage.getItem('servicos')) || [];
     }
+
     function setServicos(servicos) {
         localStorage.setItem('servicos', JSON.stringify(servicos));
     }
+
     function atualizarListaServicos() {
         const lista = document.getElementById('servicos-lista');
         lista.innerHTML = '';
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${servico.nome}</td>
                 <td>R$ ${parseFloat(servico.preco).toFixed(2)}</td>
                 <td>${servico.descricao}</td>
-                <td>${servico.duracao || 30}</td>
+                <td>${servico.duracao || 30} min</td>
                 <td>
                     <button class="btn btn-sm btn-warning btn-editar-servico" data-idx="${idx}">Editar</button>
                     <button class="btn btn-sm btn-danger btn-excluir-servico" data-idx="${idx}">Excluir</button>
@@ -127,8 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const servicos = getServicos();
-        // Não permitir nomes duplicados
-        if (servicos.some(s => s.nome === nome)) {
+        // Não permitir nomes duplicados (exceto quando estiver editando)
+        const servicoExistente = servicos.find(s => s.nome.toLowerCase() === nome.toLowerCase());
+        if (servicoExistente && !editandoServico) {
             alert('Já existe um serviço com esse nome.');
             return;
         }
