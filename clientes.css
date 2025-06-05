@@ -382,3 +382,37 @@ footer {
 .remover-servico:hover {
   background-color: #E03025;
 }
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4CAF50; /* Verde padrão */
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #45a049; /* Tom mais escuro no hover */
+}
+
+/* Botões com funções diferentes (se quiser variar a cor de excluir, por exemplo) */
+button.excluir,
+button.remover-servico {
+  background-color: #f44336; /* Vermelho */
+}
+
+button.excluir:hover,
+button.remover-servico:hover {
+  background-color: #d32f2f;
+}
+
+button.editar {
+  background-color: #2196F3; /* Azul */
+}
+
+button.editar:hover {
+  background-color: #1976d2;
+}
+
