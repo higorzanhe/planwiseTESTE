@@ -16,21 +16,42 @@ document.addEventListener('DOMContentLoaded', function () {
         return JSON.parse(localStorage.getItem('servicos')) || [];
     }
 
-    // Initialize service selection dropdown
+    // Initialize service selection dropdown with price display
     function preencherServicos() {
         const servicos = getServicos();
         const select = document.getElementById('servicoCliente');
+        
+        // Create price display element
+        const precoDisplay = document.createElement('div');
+        precoDisplay.id = 'precoServico';
+        precoDisplay.className = 'mt-2 fw-bold text-success d-none';
+        select.parentElement.appendChild(precoDisplay);
+
         select.innerHTML = '<option value="">Selecione um serviço</option>';
         servicos.forEach(servico => {
             const option = document.createElement('option');
             option.value = servico.nome;
             option.textContent = `${servico.nome} (${servico.duracao || 30} min)`;
             option.setAttribute('data-duracao', servico.duracao || 30);
+            option.setAttribute('data-preco', servico.preco || 0);
             select.appendChild(option);
+        });
+
+        // Add change event listener to show price
+        select.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const preco = selectedOption.getAttribute('data-preco');
+            const precoDisplay = document.getElementById('precoServico');
+            
+            if (this.value && preco) {
+                precoDisplay.textContent = `Valor: R$ ${parseFloat(preco).toFixed(2)}`;
+                precoDisplay.classList.remove('d-none');
+            } else {
+                precoDisplay.classList.add('d-none');
+            }
         });
     }
 
-    // Display existing appointments (time slots only)
     function mostrarAgendamentos() {
         const agendamentos = getAgendamentos();
         const calendarioDiv = document.getElementById('calendarioCliente');
@@ -41,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Sort appointments by date and time
         agendamentos.sort((a, b) => {
             const dateA = new Date(`${a.data}T${a.hora}`);
             const dateB = new Date(`${b.data}T${b.hora}`);
@@ -65,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
         calendarioDiv.appendChild(ul);
     }
 
-    // Form submission handler
     document.getElementById('formCliente').addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -74,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const hora = document.getElementById('horaCliente').value;
         const servico = document.getElementById('servicoCliente').value;
 
-        // Validation
         if (!nome || !data || !hora || !servico) {
             document.getElementById('mensagemErroCliente').textContent = 'Preencha todos os campos obrigatórios.';
             document.getElementById('mensagemErroCliente').classList.remove('d-none');
@@ -82,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Check if date is not in the past
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
         const dataSelecionada = new Date(`${data}T${hora}`);
@@ -93,11 +110,17 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Check for time conflicts
         const servicos = getServicos();
         const servicoSelecionado = servicos.find(s => s.nome === servico);
-        const duracao = servicoSelecionado ? parseInt(servicoSelecionado.duracao) : 30;
+        
+        if (!servicoSelecionado) {
+            document.getElementById('mensagemErroCliente').textContent = 'Serviço não encontrado. Por favor, selecione um serviço válido.';
+            document.getElementById('mensagemErroCliente').classList.remove('d-none');
+            document.getElementById('mensagemSucessoCliente').classList.add('d-none');
+            return;
+        }
 
+        const duracao = servicoSelecionado.duracao ? parseInt(servicoSelecionado.duracao) : 30;
         const inicioNovo = new Date(`${data}T${hora}`);
         const fimNovo = new Date(inicioNovo.getTime() + duracao * 60000);
 
@@ -118,19 +141,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Save new appointment
+        const preco = servicoSelecionado.preco || 0;
+
         agendamentos.push({ 
             id: '_' + Math.random().toString(36).substr(2, 9),
             nome, 
             data, 
             hora, 
-            servico 
+            servico,
+            preco: parseFloat(preco)
         });
+        
         setAgendamentos(agendamentos);
 
-        // Show success message
         document.getElementById('mensagemSucessoCliente').classList.remove('d-none');
         document.getElementById('mensagemErroCliente').classList.add('d-none');
+        document.getElementById('precoServico').classList.add('d-none');
         this.reset();
         mostrarAgendamentos();
     });
