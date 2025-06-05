@@ -1,165 +1,117 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 
+:root {
+    --primary-color: #1282a2;
+    --secondary-color: #034078;
+    --success-color: #198754;
+    --bg-light: #f8f9fa;
+    --white: #ffffff;
+}
+
 * {
-  font-family: 'Karla', sans-serif;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Karla', sans-serif;
 }
 
 body {
-  background-color: #f7f9fa;
-  color: #034078;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-header {
-  background-color: #0d5c75;
-  padding: 1rem;
-  text-align: center;
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-light);
 }
 
 main {
-  flex: 1;
-  padding: 2rem 1rem;
+    flex: 1;
 }
 
 .container {
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 2rem;
-  margin: 0 auto;
-  max-width: 1200px;
+    max-width: 1400px;
 }
 
-h2, h5 {
-  color: #0d5c75;
-  font-weight: bold;
+#calendarioCliente {
+    min-height: 600px;
+    background-color: var(--white);
+    border-radius: 8px;
 }
 
-.form-label {
-  font-weight: 600;
-  color: #0d5c75;
+.fc {
+    height: 100%;
 }
 
-.form-control {
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  font-size: 1rem;
+.fc .fc-toolbar-title {
+    font-size: 1.2em;
+    color: var(--secondary-color);
 }
 
-form label {
-  margin-bottom: 0.3rem;
+.fc .fc-button-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-form input,
-form select {
-  margin-bottom: 1rem;
-  width: 100%;
+.fc .fc-button-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
-button[type="submit"] {
-  background-color: #1282a2;
-  border: none;
-  padding: 10px;
-  font-weight: bold;
-  color: white;
-  width: 100%;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+.fc-event {
+    cursor: default !important;
+    padding: 2px 4px;
 }
 
-button[type="submit"]:hover {
-  background-color: #0d5c75;
-}
-
-.btn-success {
-  background-color: #1282a2;
-  border: none;
-}
-
-.btn-success:hover {
-  background-color: #0d5c75;
-}
-
-.alert {
-  border-radius: 8px;
-  font-size: 0.95rem;
-  margin-top: 1rem;
+#precoServico {
+    background-color: var(--bg-light);
+    color: var(--success-color);
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
 footer {
-  background-color: #0d5c75;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  margin-top: auto;
-}
-
-/* Calendário */
-#calendarioCliente {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 0.5rem;
-  background-color: #f1f9ff;
-  min-height: 500px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
+    .container {
+        padding: 1rem;
+        margin: 0.5rem;
+    }
 
-  .row {
-    flex-direction: column;
-  }
+    #calendarioCliente {
+        min-height: 400px;
+        margin-top: 1rem;
+    }
 
-  .col-md-5,
-  .col-md-7 {
-    width: 100%;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  #calendarioCliente {
-    margin-top: 1rem;
-  }
+    .fc .fc-toolbar {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {
-  h2 {
-    font-size: 1.3rem;
-  }
+    .container {
+        padding: 0.5rem;
+    }
 
-  header {
-    font-size: 1.4rem;
-  }
+    .fc .fc-toolbar-title {
+        font-size: 1em;
+    }
 
-  main {
-    padding: 1rem 0.5rem;
-  }
-  
-}#precoServico {
-    color: #198754;
-    padding: 0.5rem;
-    border-radius: 4px;
-    background-color: #f8f9fa;
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-    transition: opacity 0.3s ease;
+    .fc .fc-button {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.9em;
+    }
 }
 
-#precoServico.d-none {
-    display: none;
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
 }
